@@ -1,39 +1,45 @@
 import { Card, Badge } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function FilmCard({ film }) {
-  const { title, year, poster_path, critic_score, popularity } = film;
+  const { id, title, year, poster_path, critic_score, popularity } = film;
 
   const BASE_MEDIA_URL = "http://localhost:8000";
   const posterUrl = poster_path ? `${BASE_MEDIA_URL}${poster_path}` : null;
 
   return (
-    <Card className="fh-film-card h-100 shadow-sm">
-      {posterUrl && (
-        <Card.Img
-          variant="top"
-          src={posterUrl}
-          alt={`${title} poster`}
-        />
-      )}
-
-      <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        {year && (
-          <Card.Subtitle className="text-muted mb-2">
-            {year}
-          </Card.Subtitle>
+    <Link
+      to={`/films/${id}`}
+      className="text-decoration-none text-reset"
+    >
+      <Card className="fh-film-card h-100 shadow-sm">
+        {posterUrl && (
+          <Card.Img
+            variant="top"
+            src={posterUrl}
+            alt={`${title} poster`}
+          />
         )}
 
-        <div className="d-flex gap-2 mt-2">
-          {critic_score != null && (
-            <Badge variant="info">Critics {critic_score}</Badge>
+        <Card.Body>
+          <Card.Title>{title}</Card.Title>
+          {year && (
+            <Card.Subtitle className="text-muted mb-2">
+              {year}
+            </Card.Subtitle>
           )}
-          {popularity != null && (
-            <Badge variant="secondary">Pop {Math.round(popularity)}</Badge>
-          )}
-        </div>
-      </Card.Body>
-    </Card>
+
+          <div className="d-flex gap-2 mt-2">
+            {critic_score != null && (
+              <Badge variant="info">Critics {critic_score}</Badge>
+            )}
+            {popularity != null && (
+              <Badge variant="secondary">Pop {Math.round(popularity)}</Badge>
+            )}
+          </div>
+        </Card.Body>
+      </Card>
+    </Link>
   );
 }
 
