@@ -4,6 +4,24 @@ import { Row, Col, Badge, Spinner, Button } from "react-bootstrap";
 import api from "../services/api";
 
 const BASE_MEDIA_URL = "http://localhost:8000";
+const TMDB_BASE_URL = "https://image.tmdb.org/t/p/w500";
+const FALLBACK_POSTER_URL = "https://placehold.co/400x600?text=No+Poster";
+
+function buildPosterUrl(rawPath) {
+  if (!rawPath) return null;
+  const poster_path = String(rawPath);
+
+  if (poster_path.startsWith("http://") || poster_path.startsWith("https://")) {
+    return poster_path;
+  }
+
+  if (poster_path.startsWith("/media/")) {
+    return `${BASE_MEDIA_URL}${poster_path}`;
+  }
+
+  // default: TMDB-style relative path
+  return `${TMDB_BASE_URL}${poster_path}`;
+}
 
 function FilmDetailPage() {
   const { id } = useParams();
@@ -12,6 +30,10 @@ function FilmDetailPage() {
   const [film, setFilm] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const [reviews, setReviews] = useState([]);
+  const [isReviewsLoading, setIsReviewsLoading] = useState(true);
+  const [reviewsError, setReviewsError] = useState("");
 
   useEffect(() => {
     const fetchFilm = async () => {
@@ -28,7 +50,22 @@ function FilmDetailPage() {
       }
     };
 
+    const fetchReviews = async () => {
+      try {
+        setIsReviewsLoading(true);
+        setReviewsError("");
+        const response = await api.get(`/reviews/?film=${id}`);
+        setReviews(response.data.results || response.data);
+      } catch (err) {
+        console.error(err);
+        setReviewsError("Could not load reviews.");
+      } finally {
+        setIsReviewsLoading(false);
+      }
+    };
+
     fetchFilm();
+    fetchReviews();
   }, [id]);
 
   if (isLoading) {
@@ -60,7 +97,7 @@ function FilmDetailPage() {
     genres,
   } = film;
 
-  const posterUrl = poster_path ? `${BASE_MEDIA_URL}${poster_path}` : null;
+  const posterUrl = buildPosterUrl(poster_path) || FALLBACK_POSTER_URL;
 
   // --- Cast & crew handling ---
   const castOrPeople = film.cast || film.people || [];
@@ -74,13 +111,12 @@ function FilmDetailPage() {
     .filter((p) => {
       const name = p && (p.name || p.person_name);
       if (!name) return false;
-      // avoid listing the director twice if they’re also in cast
       if (director && (director.name || director.person_name) === name) {
         return false;
       }
       return true;
     })
-    .slice(0, 6); // limit to a few main people
+    .slice(0, 6);
 
   return (
     <>
@@ -99,6 +135,10 @@ function FilmDetailPage() {
               src={posterUrl}
               alt={`${title} poster`}
               className="img-fluid fh-detail-poster"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = FALLBACK_POSTER_URL;
+              }}
             />
           )}
         </Col>
@@ -162,7 +202,42 @@ function FilmDetailPage() {
       <Row>
         <Col md={8}>
           <h2 className="h4 fh-section-title">User reviews</h2>
-          <p className="text-muted">Reviews will appear here.</p>
+
+          {isReviewsLoading ? (
+            <p className="text-muted">Loading reviews...</p>
+          ) : reviewsError ? (
+            <p className="text-danger mb-0">{reviewsError}</p>
+          ) : reviews.length === 0 ? (
+            <p className="text-muted mb-0">No reviews yet.</p>
+          ) : (
+            <div>
+              {reviews.map((review) => (
+                <div
+                  key={review.id}
+                  className="mb-3 p-3 rounded"
+                  style={{
+                    backgroundColor: "rgba(0,0,0,0.35)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                  }}
+                >
+                  <div className="d-flex align-items-center mb-2">
+                    <strong>{review.user_username || "User"}</strong>
+                    {review.rating != null && (
+                      <Badge variant="info" className="ml-2">
+                        {review.rating}/10
+                      </Badge>
+                    )}
+                  </div>
+                  {review.body && <p className="mb-2">{review.body}</p>}
+                  {review.created_at && (
+                    <small className="text-muted">
+                      {new Date(review.created_at).toLocaleDateString()}
+                    </small>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </Col>
 
         <Col md={4}>
