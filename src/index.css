@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.fh-film-card {
+  transform: translateY(6px);
+  animation: fh-fade-in-up 0.35s ease-out forwards;
+}
+
+@keyframes fh-fade-in-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

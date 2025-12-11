@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../services/api";
 import { Container, Row, Col } from "react-bootstrap";
 import FilmCard from "../components/FilmCard";
+import { Spinner } from "react-bootstrap";
 
 function FilmsPage() {
   const [films, setFilms] = useState([]);
@@ -25,9 +26,31 @@ function FilmsPage() {
     fetchFilms();
   }, []);
 
-  if (isLoading) return <p>Loading films...</p>;
-  if (error) return <p>{error}</p>;
-  if (!films.length) return <p>No films found.</p>;
+  if (isLoading) {
+    return (
+      <div className="d-flex justify-content-center py-5">
+        <Spinner animation="border" role="status">
+          <span className="sr-only">Loading films...</span>
+        </Spinner>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="d-flex justify-content-center py-5">
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  if (!films.length) {
+    return (
+      <div className="d-flex justify-content-center py-5">
+        <p>No films found.</p>
+      </div>
+    );
+  }
 
   return (
     <>

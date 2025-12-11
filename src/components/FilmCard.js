@@ -7,7 +7,7 @@ function FilmCard({ film }) {
   const posterUrl = poster_path ? `${BASE_MEDIA_URL}${poster_path}` : null;
 
   return (
-    <Card className="h-100 shadow-sm">
+    <Card className="fh-film-card h-100 shadow-sm">
       {posterUrl && (
         <Card.Img
           variant="top"
@@ -18,7 +18,11 @@ function FilmCard({ film }) {
 
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        {year && <Card.Subtitle className="text-muted mb-2">{year}</Card.Subtitle>}
+        {year && (
+          <Card.Subtitle className="text-muted mb-2">
+            {year}
+          </Card.Subtitle>
+        )}
 
         <div className="d-flex gap-2 mt-2">
           {critic_score != null && (
