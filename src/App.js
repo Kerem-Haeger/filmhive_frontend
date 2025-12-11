@@ -1,16 +1,18 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
+import { Container } from "react-bootstrap";
 import FilmsPage from "./pages/FilmsPage";
+import MainNavbar from "./components/MainNavbar";
 
 function App() {
   return (
     <Router>
-      <Layout>
+      <MainNavbar />
+      <Container className="py-4">
         <Routes>
           <Route path="/" element={<FilmsPage />} />
           <Route path="/films" element={<FilmsPage />} />
         </Routes>
-      </Layout>
+      </Container>
     </Router>
   );
 }

@@ -1,6 +1,6 @@
-// src/pages/FilmsPage.js
 import { useEffect, useState } from "react";
 import api from "../services/api";
+import { Container, Row, Col } from "react-bootstrap";
 import FilmCard from "../components/FilmCard";
 
 function FilmsPage() {
@@ -13,7 +13,7 @@ function FilmsPage() {
       try {
         setIsLoading(true);
         const response = await api.get("/films/");
-        setFilms(response.data.results || response.data); // depending on DRF pagination
+        setFilms(response.data.results || response.data);
       } catch (err) {
         console.error(err);
         setError("Could not load films. Please try again.");
@@ -25,27 +25,21 @@ function FilmsPage() {
     fetchFilms();
   }, []);
 
-  if (isLoading) {
-    return <p className="fh-status">Loading films...</p>;
-  }
-
-  if (error) {
-    return <p className="fh-status fh-status--error">{error}</p>;
-  }
-
-  if (!films.length) {
-    return <p className="fh-status">No films found.</p>;
-  }
+  if (isLoading) return <p>Loading films...</p>;
+  if (error) return <p>{error}</p>;
+  if (!films.length) return <p>No films found.</p>;
 
   return (
-    <section className="fh-films-page">
-      <h1 className="fh-page-title">Browse Films</h1>
-      <div className="fh-film-grid">
+    <>
+      <h1 className="mb-4">Browse Films</h1>
+      <Row>
         {films.map((film) => (
-          <FilmCard key={film.id} film={film} />
+          <Col key={film.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
+            <FilmCard film={film} />
+          </Col>
         ))}
-      </div>
-    </section>
+      </Row>
+    </>
   );
 }
 

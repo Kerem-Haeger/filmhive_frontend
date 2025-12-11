@@ -1,30 +1,35 @@
-// src/components/FilmCard.js
+import { Card, Badge } from "react-bootstrap";
+
 function FilmCard({ film }) {
   const { title, year, poster_path, critic_score, popularity } = film;
 
+  const BASE_MEDIA_URL = "http://localhost:8000";
+  const posterUrl = poster_path ? `${BASE_MEDIA_URL}${poster_path}` : null;
+
   return (
-    <article className="fh-film-card">
-      {poster_path && (
-        <div className="fh-film-card-poster">
-          <img src={poster_path} alt={`${title} poster`} />
-        </div>
+    <Card className="h-100 shadow-sm">
+      {posterUrl && (
+        <Card.Img
+          variant="top"
+          src={posterUrl}
+          alt={`${title} poster`}
+        />
       )}
-      <div className="fh-film-card-body">
-        <h2 className="fh-film-title">{title}</h2>
-        {year && <p className="fh-film-meta">{year}</p>}
-        <div className="fh-film-stats">
+
+      <Card.Body>
+        <Card.Title>{title}</Card.Title>
+        {year && <Card.Subtitle className="text-muted mb-2">{year}</Card.Subtitle>}
+
+        <div className="d-flex gap-2 mt-2">
           {critic_score != null && (
-            <span className="fh-badge">Critics {critic_score}</span>
+            <Badge variant="info">Critics {critic_score}</Badge>
           )}
           {popularity != null && (
-            <span className="fh-badge fh-badge--subtle">
-              Pop {Math.round(popularity)}
-            </span>
+            <Badge variant="secondary">Pop {Math.round(popularity)}</Badge>
           )}
         </div>
-        {/* Later: buttons for Favourite / Watchlist / Details */}
-      </div>
-    </article>
+      </Card.Body>
+    </Card>
   );
 }
 
