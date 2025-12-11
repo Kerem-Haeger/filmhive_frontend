@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import FilmCard from "../components/FilmCard";
-import { Spinner } from "react-bootstrap";
 
 function FilmsPage() {
   const [films, setFilms] = useState([]);
@@ -39,7 +38,7 @@ function FilmsPage() {
   if (error) {
     return (
       <div className="d-flex justify-content-center py-5">
-        <p>{error}</p>
+        <p className="text-danger mb-0">{error}</p>
       </div>
     );
   }
@@ -47,14 +46,14 @@ function FilmsPage() {
   if (!films.length) {
     return (
       <div className="d-flex justify-content-center py-5">
-        <p>No films found.</p>
+        <p className="mb-0">No films found.</p>
       </div>
     );
   }
 
   return (
     <>
-      <h1 className="mb-4">Browse Films</h1>
+      <h1 className="fh-page-title">Browse films</h1>
       <Row>
         {films.map((film) => (
           <Col key={film.id} xs={12} sm={6} md={4} lg={3} className="mb-4">

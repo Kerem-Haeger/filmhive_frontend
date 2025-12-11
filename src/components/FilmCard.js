@@ -1,10 +1,11 @@
 import { Card, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+const BASE_MEDIA_URL = "http://localhost:8000";
+
 function FilmCard({ film }) {
   const { id, title, year, poster_path, critic_score, popularity } = film;
 
-  const BASE_MEDIA_URL = "http://localhost:8000";
   const posterUrl = poster_path ? `${BASE_MEDIA_URL}${poster_path}` : null;
 
   return (
@@ -18,23 +19,30 @@ function FilmCard({ film }) {
             variant="top"
             src={posterUrl}
             alt={`${title} poster`}
+            loading="lazy"
           />
         )}
 
         <Card.Body>
           <Card.Title>{title}</Card.Title>
+
           {year && (
-            <Card.Subtitle className="text-muted mb-2">
+            <Card.Subtitle className="card-subtitle mb-2">
               {year}
             </Card.Subtitle>
           )}
 
-          <div className="d-flex gap-2 mt-2">
+          {/* Bootstrap 4: no gap utilities, use margins instead */}
+          <div className="d-flex mt-2">
             {critic_score != null && (
-              <Badge variant="info">Critics {critic_score}</Badge>
+              <Badge variant="info" className="mr-2">
+                Critics {critic_score}
+              </Badge>
             )}
             {popularity != null && (
-              <Badge variant="secondary">Pop {Math.round(popularity)}</Badge>
+              <Badge variant="secondary">
+                Pop {Math.round(popularity)}
+              </Badge>
             )}
           </div>
         </Card.Body>

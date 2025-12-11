@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Row, Col, Badge, Spinner, Button } from "react-bootstrap";
 import api from "../services/api";
 
+const BASE_MEDIA_URL = "http://localhost:8000";
+
 function FilmDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -58,7 +60,6 @@ function FilmDetailPage() {
     genres,
   } = film;
 
-  const BASE_MEDIA_URL = "http://localhost:8000";
   const posterUrl = poster_path ? `${BASE_MEDIA_URL}${poster_path}` : null;
 
   return (
@@ -93,12 +94,12 @@ function FilmDetailPage() {
               </Badge>
             )}
             {popularity != null && (
-              <Badge variant="secondary">
+              <Badge variant="secondary" className="mr-2">
                 Pop {Math.round(popularity)}
               </Badge>
             )}
             {runtime && (
-              <Badge variant="dark" className="ml-2">
+              <Badge variant="dark" className="ml-1">
                 {runtime} min
               </Badge>
             )}
