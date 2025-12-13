@@ -46,16 +46,16 @@ export function AuthProvider({ children }) {
   };
 
   const register = async ({ username, email, password1, password2 }) => {
-    await api.post("/auth/registration/", {
-      username,
-      email,
-      password1,
-      password2,
-    });
-    // dj-rest-auth registration often returns a key if configured; but to be safe:
-    // immediately login after successful registration
+    const payload = { username, password1, password2 };
+
+    const cleanedEmail = (email || "").trim();
+    if (cleanedEmail) payload.email = cleanedEmail; // only include if user entered it
+
+    await api.post("/auth/registration/", payload);
+
+    // login after successful registration
     await login({ username, password: password1 });
-  };
+    };
 
   const logout = async () => {
     try {
