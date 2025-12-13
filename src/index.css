@@ -153,3 +153,55 @@ h5 {
     transform: translateY(0);
   }
 }
+
+/* --- REVIEW ACTION BUTTONS --- */
+
+.fh-review-actions {
+  display: flex;
+  gap: 8px;
+  /* space between like / report buttons */
+}
+
+.fh-review-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  /* space between icon and number/text */
+  font-size: 0.85rem;
+  padding: 4px 10px;
+}
+
+.fh-thumb {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* Muted thumbs-up when not liked */
+.fh-thumb-muted {
+  opacity: 0.75;
+}
+
+/* --- LIKE ANIMATION --- */
+
+@keyframes fh-like-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(1.25);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.fh-like-animate {
+  animation: fh-like-pop 0.25s ease-out;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
