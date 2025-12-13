@@ -1,11 +1,15 @@
 import { useContext, useMemo, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { Form, Button, Spinner, Alert } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 
 function LoginPage() {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // where to go after login:
+  const from = location.state?.from || "/films";
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,13 +25,9 @@ function LoginPage() {
   const parseApiErrors = (err) => {
     const data = err?.response?.data;
     if (!data || typeof data !== "object") {
-      return {
-        formError: "Login failed. Please try again.",
-        fieldErrors: {},
-      };
+      return { formError: "Login failed. Please try again.", fieldErrors: {} };
     }
 
-    // dj-rest-auth often returns { non_field_errors: [...] } or { detail: "..." }
     const nextFieldErrors = {};
     let nextFormError = "";
 
@@ -52,17 +52,14 @@ function LoginPage() {
     setFormError("");
     setFieldErrors({});
 
-    const cleanedUsername = username.trim();
-
     setIsSubmitting(true);
     try {
-      await login({ username: cleanedUsername, password });
-      navigate("/films");
+      await login({ username: username.trim(), password });
+      navigate(from, { replace: true });
     } catch (err) {
       console.error(err);
       const parsed = parseApiErrors(err);
 
-      // If backend gives only a generic error, nudge user by highlighting fields
       const nextFieldErrors = { ...parsed.fieldErrors };
       if (!nextFieldErrors.username && !nextFieldErrors.password && parsed.formError) {
         nextFieldErrors.username = " ";
@@ -123,7 +120,10 @@ function LoginPage() {
         </Button>
 
         <div className="mt-3 text-muted">
-          No account? <Link to="/register">Register</Link>
+          No account?{" "}
+          <Link to="/register" state={{ from }}>
+            Register
+          </Link>
         </div>
       </Form>
     </div>

@@ -1,10 +1,14 @@
 import { useContext } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 function MainNavbar() {
   const { isAuthenticated, user, logout } = useContext(AuthContext);
+  const location = useLocation();
+
+  // Keep full current path (including any query string) so we can return after login/register
+  const from = location.pathname + location.search;
 
   return (
     <Navbar bg="dark" variant="dark" expand="md" sticky="top">
@@ -24,10 +28,10 @@ function MainNavbar() {
           <Nav className="ml-auto">
             {!isAuthenticated ? (
               <>
-                <Nav.Link as={NavLink} to="/login">
+                <Nav.Link as={NavLink} to="/login" state={{ from }}>
                   Login
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/register">
+                <Nav.Link as={NavLink} to="/register" state={{ from }}>
                   Register
                 </Nav.Link>
               </>
@@ -36,6 +40,7 @@ function MainNavbar() {
                 <Navbar.Text className="mr-3 text-muted">
                   {user?.username ? `Hi, ${user.username}` : "Logged in"}
                 </Navbar.Text>
+
                 <Nav.Link
                   as="button"
                   onClick={logout}

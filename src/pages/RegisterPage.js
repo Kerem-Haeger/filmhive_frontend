@@ -1,7 +1,7 @@
 import { useContext, useMemo, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
 import { Form, Button, Spinner, Alert } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 
 function RegisterPage() {
   const { register } = useContext(AuthContext);
@@ -15,6 +15,10 @@ function RegisterPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
+
+  const location = useLocation();
+  const from = location.state?.from || "/films";
+
 
   const canSubmit = useMemo(() => {
     return (
@@ -74,7 +78,7 @@ function RegisterPage() {
         password1,
         password2,
       });
-      navigate("/films");
+      navigate(from, { replace: true });
     } catch (err) {
       console.error(err);
       const parsed = parseApiErrors(err);
@@ -164,7 +168,7 @@ function RegisterPage() {
         </Button>
 
         <div className="mt-3 text-muted">
-          Already have an account? <Link to="/login">Login</Link>
+          Already have an account? <Link to="/login" state={{ from }}>Login</Link>
         </div>
       </Form>
     </div>
