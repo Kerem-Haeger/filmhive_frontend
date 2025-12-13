@@ -210,30 +210,50 @@ function FilmDetailPage() {
   };
 
   const handleToggleLike = async (review) => {
-    if (!isAuthenticated) return;
-    if (review._likeBusy) return;
+    if (!isAuthenticated || review._likeBusy) return;
 
     setActionError("");
 
-    // Optimistic UI: mark this review as busy
+    // Optimistic update
     setReviews((prev) =>
-      prev.map((r) =>
-        r.id === review.id ? { ...r, _likeBusy: true } : r
-      )
+      prev.map((r) => {
+        if (r.id !== review.id) return r;
+
+        const liked = !r.liked_by_me;
+        return {
+          ...r,
+          liked_by_me: liked,
+          likes_count: liked
+            ? (r.likes_count || 0) + 1
+            : Math.max((r.likes_count || 1) - 1, 0),
+          _likeBusy: true,
+        };
+      })
     );
+
+    if (!review.liked_by_me) {
+      setAnimatingLikeId(review.id);
+    }
 
     try {
       if (review.liked_by_me && review.my_like_id) {
         await api.delete(`/review-likes/${review.my_like_id}/`);
       } else {
-        await api.post(`/review-likes/`, { review: review.id });
-        setAnimatingLikeId(review.id); // trigger animation on like
-      }
+        const res = await api.post(`/review-likes/`, { review: review.id });
 
-      await fetchReviews();
+        // Store my_like_id locally so unlike works without refetch
+        setReviews((prev) =>
+          prev.map((r) =>
+            r.id === review.id ? { ...r, my_like_id: res.data.id } : r
+          )
+        );
+      }
     } catch (err) {
       console.error(err);
       setActionError(parseApiError(err, "Could not update like."));
+
+      // Roll back on error
+      await fetchReviews();
     } finally {
       setAnimatingLikeId(null);
       setReviews((prev) =>
