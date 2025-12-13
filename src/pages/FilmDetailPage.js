@@ -446,15 +446,17 @@ function FilmDetailPage() {
             <p className="text-muted mb-0">No reviews yet.</p>
           ) : (
             <div>
-              {reviews.map((review) => (
-                <div
-                  key={review.id}
-                  className="mb-3 p-3 rounded"
-                  style={{
-                    backgroundColor: "rgba(0,0,0,0.35)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                  }}
-                >
+              {reviews
+                .filter((review) => review.body && review.body.trim().length > 0)
+                .map((review) => (
+                  <div
+                    key={review.id}
+                    className="mb-3 p-3 rounded"
+                    style={{
+                      backgroundColor: "rgba(0,0,0,0.35)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                    }}
+                  >
                   <div className="d-flex align-items-center justify-content-between mb-2">
                     <div className="d-flex align-items-center">
                       <strong>{review.user_username || "User"}</strong>
@@ -534,7 +536,7 @@ function FilmDetailPage() {
               {myReview && !isEditing && (
                 <div className="mb-3">
                   <p className="text-muted mb-2">
-                    You’ve already reviewed this film.
+                    You’ve already reviewed or rated this film.
                   </p>
                   <div className="d-flex gap-3">
                     <Button
