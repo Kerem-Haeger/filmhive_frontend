@@ -4,7 +4,7 @@ import { FALLBACK_POSTER_URL } from "../../utils/constants";
 import CastCrewSection from "./CastCrewSection";
 
 function FilmHeader({ film, castOrPeople }) {
-  const { title, year, poster_path, overview, runtime, critic_score, popularity, genres } =
+  const { title, year, poster_path, overview, runtime, critic_score, genres } =
     film;
 
   const posterUrl = buildPosterUrl(poster_path) || FALLBACK_POSTER_URL;
@@ -33,11 +33,6 @@ function FilmHeader({ film, castOrPeople }) {
           {critic_score != null && (
             <Badge bg="info" className="me-2">
               Critics {critic_score}
-            </Badge>
-          )}
-          {popularity != null && (
-            <Badge bg="secondary" className="me-2">
-              Pop {Math.round(popularity)}
             </Badge>
           )}
           {runtime && <Badge bg="dark">{runtime} min</Badge>}

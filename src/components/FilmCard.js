@@ -4,7 +4,7 @@ import { buildPosterUrl } from "../utils/imageUtils";
 import { FALLBACK_POSTER_URL } from "../utils/constants";
 
 function FilmCard({ film }) {
-  const { id, title, year, critic_score, popularity } = film;
+  const { id, title, year, critic_score } = film;
 
   const rawPosterPath = film.poster_path;
   const posterUrl = buildPosterUrl(rawPosterPath) || FALLBACK_POSTER_URL;
@@ -35,11 +35,6 @@ function FilmCard({ film }) {
             {critic_score != null && (
               <Badge variant="info" className="mr-2">
                 Critics {critic_score}
-              </Badge>
-            )}
-            {popularity != null && (
-              <Badge variant="secondary">
-                Pop {Math.round(popularity)}
               </Badge>
             )}
           </div>
