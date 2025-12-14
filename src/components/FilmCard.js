@@ -34,7 +34,7 @@ function FilmCard({ film }) {
           <div className="d-flex mt-2">
             {critic_score != null && (
               <Badge variant="info" className="mr-2">
-                Critics {critic_score}
+                Critics {parseFloat(critic_score).toFixed(1)}
               </Badge>
             )}
           </div>
