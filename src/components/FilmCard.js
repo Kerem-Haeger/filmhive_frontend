@@ -1,28 +1,7 @@
 import { Card, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
-const BASE_MEDIA_URL = "http://localhost:8000";
-const TMDB_BASE_URL = "https://image.tmdb.org/t/p/w500";
-const FALLBACK_POSTER_URL = "https://placehold.co/400x600?text=No+Poster";
-
-function buildPosterUrl(rawPath) {
-  if (!rawPath) return null;
-
-  const poster_path = String(rawPath);
-
-  // already a full URL
-  if (poster_path.startsWith("http://") || poster_path.startsWith("https://")) {
-    return poster_path;
-  }
-
-  // local media (future-proof)
-  if (poster_path.startsWith("/media/")) {
-    return `${BASE_MEDIA_URL}${poster_path}`;
-  }
-
-  // default: TMDB-style relative path (your current case)
-  return `${TMDB_BASE_URL}${poster_path}`;
-}
+import { buildPosterUrl } from "../utils/imageUtils";
+import { FALLBACK_POSTER_URL } from "../utils/constants";
 
 function FilmCard({ film }) {
   const { id, title, year, critic_score, popularity } = film;
