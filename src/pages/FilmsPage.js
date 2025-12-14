@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import api from "../services/api";
-import { Row, Col, Spinner, Form, Button } from "react-bootstrap";
+import { Row, Col, Spinner, Form, Button, Badge, Alert } from "react-bootstrap";
 import FilmCard from "../components/FilmCard";
+import FilterBar from "../components/filters/FilterBar";
+import { useFilmFilters } from "../hooks/useFilmFilters";
 
 function FilmsPage() {
   const [films, setFilms] = useState([]);
@@ -14,8 +16,21 @@ function FilmsPage() {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(searchParams.get("q") || "");
+  const [showFilters, setShowFilters] = useState(false);
 
   const sentinelRef = useRef(null);
+
+  // Filter/sort hook
+  const {
+    sortBy,
+    setSortBy,
+    selectedGenres,
+    toggleGenre,
+    yearRange,
+    setYearRange,
+    resetFilters,
+    activeFilterCount,
+  } = useFilmFilters();
 
   const fetchPage = async (url, isFirstPage = false) => {
     if (!url) {
@@ -142,9 +157,18 @@ function FilmsPage() {
     );
   }
 
-  const trimmedSearch = searchTerm.trim().toLowerCase();
+  // Extract available genres
+  const availableGenres = Array.from(
+    new Set(
+      films.flatMap((film) =>
+        (film.genres || []).map((g) => g.name || g)
+      )
+    )
+  ).sort();
 
-  const filteredFilms = trimmedSearch
+  // Apply search filter
+  const trimmedSearch = searchTerm.trim().toLowerCase();
+  let filteredFilms = trimmedSearch
     ? films.filter((film) => {
         const parts = [
           film.title,
@@ -166,43 +190,188 @@ function FilmsPage() {
       })
     : films;
 
+  // Apply genre filter
+  if (selectedGenres && selectedGenres.length > 0) {
+    filteredFilms = filteredFilms.filter((film) => {
+      const filmGenres = (film.genres || []).map((g) => g.name || g);
+      return selectedGenres.every((genre) => filmGenres.includes(genre));
+    });
+  }
+
+  // Apply year range filter
+  if (yearRange && (yearRange.min || yearRange.max)) {
+    filteredFilms = filteredFilms.filter((film) => {
+      const filmYear = film.year;
+      if (!filmYear) return false;
+      const min = yearRange.min ? parseInt(yearRange.min) : 0;
+      const max = yearRange.max ? parseInt(yearRange.max) : 9999;
+      return filmYear >= min && filmYear <= max;
+    });
+  }
+
+  // Apply sorting
+  const sortedFilms = sortBy
+    ? [...filteredFilms].sort((a, b) => {
+        switch (sortBy) {
+          case "title":
+            return (a.title || "").localeCompare(b.title || "");
+          case "year_desc":
+            return (b.year || 0) - (a.year || 0);
+          case "year_asc":
+            return (a.year || 0) - (b.year || 0);
+          case "rating_desc":
+            return (b.critic_score || 0) - (a.critic_score || 0);
+          case "rating_asc":
+            return (a.critic_score || 0) - (b.critic_score || 0);
+          case "popularity_desc":
+            return (b.popularity || 0) - (a.popularity || 0);
+          default:
+            return 0;
+        }
+      })
+    : filteredFilms;
+
   return (
     <>
-      <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-3">
-        <h1 className="fh-page-title mb-3 mb-md-0">Browse films</h1>
+      <h1 className="fh-page-title mb-3">Browse films</h1>
 
-        <Form
-          className="w-100 w-md-auto"
-          onSubmit={(e) => e.preventDefault()}
-        >
-          <div className="input-group">
+      <div className="d-flex flex-column flex-md-row align-items-start gap-3" style={{ marginBottom: sortedFilms.length !== films.length ? '2rem' : '1rem' }}>
+        <div className="flex-grow-1 position-relative">
+          <Form onSubmit={(e) => e.preventDefault()}>
+            <div className="input-group">
+              <Form.Control
+                type="search"
+                placeholder="Search by title, year, genre, people..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+              />
+              {searchTerm && (
+                <div className="input-group-append">
+                  <Button
+                    variant="outline-secondary"
+                    type="button"
+                    onClick={handleClearSearch}
+                  >
+                    Clear
+                  </Button>
+                </div>
+              )}
+            </div>
+          </Form>
+          {sortedFilms.length !== films.length && (
+            <small className="text-muted position-absolute" style={{ top: '100%', left: 0, marginTop: '4px' }}>
+              {sortedFilms.length} {sortedFilms.length === 1 ? 'film' : 'films'} found
+            </small>
+          )}
+        </div>
+
+        <div className="d-flex align-items-end gap-2 flex-shrink-0">
+          <div style={{ minWidth: "180px" }}>
             <Form.Control
-              type="search"
-              placeholder="Search by title, year, genre, people..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-            {searchTerm && (
-              <div className="input-group-append">
-                <Button
-                  variant="outline-secondary"
-                  type="button"
-                  onClick={handleClearSearch}
-                >
-                  Clear
-                </Button>
-              </div>
-            )}
+              as="select"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              <option value="">Sort by...</option>
+              <option value="title">Title (A-Z)</option>
+              <option value="year_desc">Year (Newest)</option>
+              <option value="year_asc">Year (Oldest)</option>
+              <option value="rating_desc">Rating (Highest)</option>
+              <option value="rating_asc">Rating (Lowest)</option>
+              <option value="popularity_desc">Popularity</option>
+            </Form.Control>
           </div>
-        </Form>
+
+          <Button
+            variant="outline-light"
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            {showFilters ? "Hide" : "Show"} Filters
+            {activeFilterCount > 0 && (
+              <Badge bg="warning" className="ms-2">
+                {activeFilterCount}
+              </Badge>
+            )}
+          </Button>
+
+          {activeFilterCount > 0 && (
+            <Button
+              variant="outline-danger"
+              onClick={resetFilters}
+            >
+              Clear All
+            </Button>
+          )}
+        </div>
       </div>
 
-      {filteredFilms.length === 0 ? (
-        <p>No films match your search.</p>
+      {showFilters && (
+        <div className="border rounded p-3 mb-3" style={{ backgroundColor: "rgba(0,0,0,0.3)" }}>
+          <Row>
+            <Col md={8}>
+              <Form.Group className="mb-3">
+                <Form.Label className="fw-bold">Genres</Form.Label>
+                <div className="d-flex flex-wrap gap-2">
+                  {availableGenres.map((genre) => (
+                    <Button
+                      key={genre}
+                      variant={
+                        selectedGenres.includes(genre)
+                          ? "info"
+                          : "outline-secondary"
+                      }
+                      size="sm"
+                      onClick={() => toggleGenre(genre)}
+                    >
+                      {genre}
+                    </Button>
+                  ))}
+                </div>
+              </Form.Group>
+            </Col>
+
+            <Col md={4}>
+              <Form.Group className="mb-0">
+                <Form.Label className="fw-bold">Year Range</Form.Label>
+                <div className="d-flex gap-2 align-items-center">
+                  <Form.Control
+                    type="number"
+                    placeholder="Min"
+                    value={yearRange?.min || ""}
+                    onChange={(e) =>
+                      setYearRange({ ...yearRange, min: e.target.value })
+                    }
+                    size="sm"
+                    min="1900"
+                    max={new Date().getFullYear()}
+                  />
+                  <span>to</span>
+                  <Form.Control
+                    type="number"
+                    placeholder="Max"
+                    value={yearRange?.max || ""}
+                    onChange={(e) =>
+                      setYearRange({ ...yearRange, max: e.target.value })
+                    }
+                    size="sm"
+                    min="1900"
+                    max={new Date().getFullYear()}
+                  />
+                </div>
+              </Form.Group>
+            </Col>
+          </Row>
+        </div>
+      )}
+
+      {sortedFilms.length === 0 ? (
+        <Alert variant="info">
+          No films match your criteria. Try adjusting your filters or search.
+        </Alert>
       ) : (
         <>
           <Row>
-            {filteredFilms.map((film) => (
+            {sortedFilms.map((film) => (
               <Col
                 key={film.id}
                 xs={12}
