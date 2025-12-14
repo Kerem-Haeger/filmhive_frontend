@@ -10,7 +10,7 @@ function Layout({ children }) {
           {children}
         </Container>
       </main>
-      {/* optional footer later */}
+      {/* footer later */}
     </div>
   );
 }

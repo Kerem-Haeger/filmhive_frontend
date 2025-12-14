@@ -67,7 +67,7 @@ h5 {
   letter-spacing: 0.03em;
 }
 
-/* --- FILM CARDS --- */
+/* Film Cards */
 
 .fh-film-card {
   background-color: var(--fh-bg-elevated);
@@ -112,7 +112,7 @@ h5 {
   color: var(--fh-text-muted) !important;
 }
 
-/* --- FILM DETAIL PAGE --- */
+/* Film Detail Page */
 
 .fh-detail-poster {
   border-radius: 12px;
@@ -154,7 +154,7 @@ h5 {
   }
 }
 
-/* --- REVIEW ACTION BUTTONS --- */
+/* Review Action Buttons */
 
 .fh-review-actions {
   display: flex;
@@ -181,7 +181,7 @@ h5 {
   opacity: 0.75;
 }
 
-/* --- LIKE ANIMATION --- */
+/* Like animation */
 
 @keyframes fh-like-pop {
   0% {
