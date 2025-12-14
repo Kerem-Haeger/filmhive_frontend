@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { Form, Button, Spinner, Alert } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
@@ -8,7 +8,6 @@ function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // where to go after login:
   const from = location.state?.from || "/films";
 
   const [username, setUsername] = useState("");
@@ -17,6 +16,14 @@ function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
+
+  // prevents state updates after unmount
+  const isMountedRef = useRef(true);
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
   const canSubmit = useMemo(() => {
     return username.trim().length > 0 && password.length > 0 && !isSubmitting;
@@ -49,13 +56,16 @@ function LoginPage() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setFormError("");
-    setFieldErrors({});
 
-    setIsSubmitting(true);
+    if (isMountedRef.current) {
+      setFormError("");
+      setFieldErrors({});
+      setIsSubmitting(true);
+    }
+
     try {
       await login({ username: username.trim(), password });
-      navigate(from, { replace: true });
+      navigate(from, { replace: true }); // unmounts LoginPage
     } catch (err) {
       console.error(err);
       const parsed = parseApiErrors(err);
@@ -66,10 +76,14 @@ function LoginPage() {
         nextFieldErrors.password = " ";
       }
 
-      setFormError(parsed.formError);
-      setFieldErrors(nextFieldErrors);
+      if (isMountedRef.current) {
+        setFormError(parsed.formError);
+        setFieldErrors(nextFieldErrors);
+      }
     } finally {
-      setIsSubmitting(false);
+      if (isMountedRef.current) {
+        setIsSubmitting(false);
+      }
     }
   };
 
