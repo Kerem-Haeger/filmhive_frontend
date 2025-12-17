@@ -189,7 +189,12 @@ function FilmHeader({ film, castOrPeople, averageRating }) {
           </Form>
           {filmListNames.length > 0 && (
             <div className="text-muted small mt-2">
-              In watchlists: {filmListNames.join(", ")}
+              In watchlists: {filmListNames.map((name, idx) => (
+                <span key={name}>
+                  <Link to={`/watchlists?name=${encodeURIComponent(name)}`}>{name}</Link>
+                  {idx < filmListNames.length - 1 ? ", " : ""}
+                </span>
+              ))}
             </div>
           )}
         </div>
