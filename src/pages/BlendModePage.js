@@ -173,7 +173,7 @@ function CompromiseResult({ result }) {
           {year && <small className="text-muted d-block mb-2">{year}</small>}
           {critic_score && (
             <Badge bg="info" className="mb-2">
-              Rating: {parseFloat(critic_score).toFixed(1)}
+              Rating: {parseFloat(critic_score).toFixed(2)}
             </Badge>
           )}
           {reasons && reasons.length > 0 && (

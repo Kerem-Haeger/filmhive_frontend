@@ -55,7 +55,7 @@ function CompromiseFilmCard({ result }) {
           <div className="d-flex mt-2 justify-content-between align-items-center">
             {critic_score != null && (
               <Badge variant="info" className="mr-2">
-                Rating: {parseFloat(critic_score).toFixed(1)}
+                Rating: {parseFloat(critic_score).toFixed(2)}
               </Badge>
             )}
             <FavoriteButton filmId={id} />

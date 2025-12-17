@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { Badge, Button } from "react-bootstrap";
+import StarRatings from "react-star-ratings";
 
 function ReviewItem({
 	review,
@@ -17,17 +18,29 @@ function ReviewItem({
 	return (
 		<div className={containerClass}>
 			<div className="d-flex align-items-center justify-content-between mb-2">
-				<div className="d-flex align-items-center">
+				<div className="d-flex align-items-center gap-2">
 					<strong>{review.user_username || "User"}</strong>
 					{isOwner && (
-						<Badge bg="secondary" className="ms-2">
+						<Badge bg="secondary">
 							Your review
 						</Badge>
 					)}
 					{review.rating != null && (
-						<Badge bg="info" className="ms-2">
-							{review.rating}/10
-						</Badge>
+						<div className="d-flex align-items-center gap-1">
+							<StarRatings
+								rating={review.rating}
+								numberOfStars={10}
+								starRatedColor="#f5c518"
+								starEmptyColor="rgba(255, 255, 255, 0.2)"
+								starDimension="16px"
+								starSpacing="2px"
+								readOnly
+								name="review-rating"
+							/>
+							<span className="text-muted" style={{ fontSize: "0.85rem" }}>
+								({review.rating}/10)
+							</span>
+						</div>
 					)}
 				</div>
 				<div className="fh-review-actions">

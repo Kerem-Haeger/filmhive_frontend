@@ -84,7 +84,7 @@ function FilmHeader({ film, castOrPeople }) {
         <div className="mb-3">
           {critic_score != null && (
             <Badge bg="info" className="me-2">
-              Rating: {critic_score}
+              Rating: {parseFloat(critic_score).toFixed(2)}
             </Badge>
           )}
           {runtime && <Badge bg="dark">{runtime} min</Badge>}
