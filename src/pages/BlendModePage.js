@@ -9,7 +9,6 @@ import {
   Spinner,
   Alert,
   Form,
-  Card,
   Badge,
   ListGroup,
 } from "react-bootstrap";
@@ -64,7 +63,7 @@ function FilmSearchInput({ label, onFilmSelect, selectedFilmId }) {
   };
 
   return (
-    <div>
+    <div className="film-search-wrapper">
       <Form.Group className="mb-3">
         <Form.Label>{label}</Form.Label>
         <Form.Control
@@ -76,30 +75,32 @@ function FilmSearchInput({ label, onFilmSelect, selectedFilmId }) {
       </Form.Group>
 
       {selectedFilm && (
-        <div className="mb-3 p-3 bg-light rounded" style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          <img
-            src={buildPosterUrl(selectedFilm.poster_path) || FALLBACK_POSTER_URL}
-            alt={selectedFilm.title}
-            style={{ height: "80px", objectFit: "cover", borderRadius: "0.25rem" }}
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = FALLBACK_POSTER_URL;
-            }}
-          />
-          <div style={{ flex: 1 }}>
-            <h6 className="mb-1">{selectedFilm.title}</h6>
-            {selectedFilm.year && <small className="text-muted">{selectedFilm.year}</small>}
+        <div className="selected-film-card">
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <img
+              src={buildPosterUrl(selectedFilm.poster_path) || FALLBACK_POSTER_URL}
+              alt={selectedFilm.title}
+              style={{ height: "80px", objectFit: "cover", borderRadius: "0.25rem" }}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = FALLBACK_POSTER_URL;
+              }}
+            />
+            <div style={{ flex: 1 }}>
+              <h6 className="mb-1">{selectedFilm.title}</h6>
+              {selectedFilm.year && <small className="text-muted">{selectedFilm.year}</small>}
+            </div>
+            <button
+              className="btn btn-sm btn-outline-secondary"
+              onClick={() => {
+                setSelectedFilm(null);
+                setSearchTerm("");
+                onFilmSelect(null);
+              }}
+            >
+              ✕
+            </button>
           </div>
-          <button
-            className="btn btn-sm btn-outline-secondary"
-            onClick={() => {
-              setSelectedFilm(null);
-              setSearchTerm("");
-              onFilmSelect(null);
-            }}
-          >
-            ✕
-          </button>
         </div>
       )}
 
@@ -112,7 +113,7 @@ function FilmSearchInput({ label, onFilmSelect, selectedFilmId }) {
               </Spinner>
             </div>
           ) : results.length > 0 ? (
-            <ListGroup style={{ maxHeight: "300px", overflowY: "auto" }}>
+            <ListGroup className="film-search-results">
               {results.map((film) => (
                 <ListGroup.Item
                   key={film.id}
@@ -154,23 +155,22 @@ function CompromiseResult({ result }) {
 
   return (
     <Link to={`/films/${id}`} className="text-decoration-none text-reset">
-      <Card className="h-100 shadow-sm" style={{ borderRadius: "0.25rem", overflow: "hidden" }}>
-        <Card.Img
-          variant="top"
+      <div className="compromise-film-card">
+        <img
+          className="poster"
           src={buildPosterUrl(poster_path) || FALLBACK_POSTER_URL}
           alt={title}
-          style={{ height: "200px", objectFit: "cover" }}
           onError={(e) => {
             e.target.onerror = null;
             e.target.src = FALLBACK_POSTER_URL;
           }}
         />
-        <Card.Body>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
-            <Badge bg="success">{Math.round(score * 100)}%</Badge>
-            <span style={{ fontSize: "0.85rem", color: "#28a745" }}>Match</span>
+        <div className="card-body">
+          <div className="match-score">
+            <span>{Math.round(score * 100)}%</span>
+            <span className="match-score-label">Match</span>
           </div>
-          <Card.Title style={{ fontSize: "1rem" }}>{title}</Card.Title>
+          <h5 className="mb-1">{title}</h5>
           {year && <small className="text-muted d-block mb-2">{year}</small>}
           {critic_score && (
             <Badge bg="info" className="mb-2">
@@ -178,16 +178,17 @@ function CompromiseResult({ result }) {
             </Badge>
           )}
           {reasons && reasons.length > 0 && (
-            <div style={{ fontSize: "0.8rem", color: "#6c757d", lineHeight: "1.4", marginTop: "0.5rem" }}>
+            <div className="reasons">
+              <div style={{ fontSize: "0.85rem", marginBottom: "0.5rem", color: "var(--fh-text-muted)" }}>Why this works:</div>
               {reasons.slice(0, 2).map((reason, idx) => (
-                <div key={idx} style={{ marginBottom: "0.25rem" }}>
-                  • {reason}
-                </div>
+                <span key={idx} className="reason-badge">
+                  {reason}
+                </span>
               ))}
             </div>
           )}
-        </Card.Body>
-      </Card>
+        </div>
+      </div>
     </Link>
   );
 }
@@ -200,7 +201,6 @@ function BlendModePage() {
   const [filmA, setFilmA] = useState(null);
   const [filmB, setFilmB] = useState(null);
   const [alpha, setAlpha] = useState(0.5);
-  const [limit, setLimit] = useState(20);
   const [hasSearched, setHasSearched] = useState(false);
 
   // Redirect to login
@@ -226,7 +226,7 @@ function BlendModePage() {
   const handleSearch = () => {
     if (canSearch) {
       setHasSearched(true);
-      fetchCompromise(filmA.id, filmB.id, alpha, limit);
+      fetchCompromise(filmA.id, filmB.id, alpha, 10);
     }
   };
 
@@ -234,120 +234,64 @@ function BlendModePage() {
     setFilmA(null);
     setFilmB(null);
     setAlpha(0.5);
-    setLimit(20);
     setHasSearched(false);
     clearResults();
   };
 
   return (
     <Container className="py-5">
-      <Row className="mb-5">
-        <Col>
-          <h1 className="mb-2">🎬 Blend Mode</h1>
-          <p className="text-muted">
-            Find your perfect film by blending two movies. Select Film A and Film B, and we'll find films that match both!
-          </p>
-        </Col>
-      </Row>
+      <h1 className="fh-page-title mb-3">Blend Mode</h1>
+      <p className="text-muted mb-4" style={{ maxWidth: "600px" }}>
+        Find your perfect film by blending two movies. Select Film A and Film B, and we'll find films that match both!
+      </p>
 
       {/* Film Selection */}
-      <Row className="mb-4">
+      <Row className="mb-5">
         <Col md={6} className="mb-4 mb-md-0">
-          <Card className="h-100">
-            <Card.Header className="bg-light">
-              <h5 className="mb-0">Film A</h5>
-            </Card.Header>
-            <Card.Body>
-              <FilmSearchInput
-                label="Select Film A"
-                onFilmSelect={setFilmA}
-                selectedFilmId={filmB?.id}
-              />
-            </Card.Body>
-          </Card>
+          <FilmSearchInput
+            label="Film A"
+            onFilmSelect={setFilmA}
+            selectedFilmId={filmB?.id}
+          />
         </Col>
         <Col md={6}>
-          <Card className="h-100">
-            <Card.Header className="bg-light">
-              <h5 className="mb-0">Film B</h5>
-            </Card.Header>
-            <Card.Body>
-              <FilmSearchInput
-                label="Select Film B"
-                onFilmSelect={setFilmB}
-                selectedFilmId={filmA?.id}
-              />
-            </Card.Body>
-          </Card>
+          <FilmSearchInput
+            label="Film B"
+            onFilmSelect={setFilmB}
+            selectedFilmId={filmA?.id}
+          />
         </Col>
       </Row>
 
-      {/* Controls */}
+      {/* Alpha Slider - Always Visible When Both Films Selected */}
       {filmA && filmB && (
-        <>
-          <Row className="mb-4">
-            <Col md={6} className="mb-4 mb-md-0">
-              <Card>
-                <Card.Header className="bg-light">
-                  <h6 className="mb-0">Weight (α)</h6>
-                </Card.Header>
-                <Card.Body>
-                  <Form.Group>
-                    <Form.Label className="mb-3">
-                      Favor Film {alpha < 0.5 ? "A" : alpha > 0.5 ? "B" : "A & B"}
-                      <Badge bg="secondary" className="ms-2">
-                        {(alpha * 100).toFixed(0)}%
-                      </Badge>
-                    </Form.Label>
-                    <input
-                      type="range"
-                      className="form-range"
-                      value={alpha}
-                      onChange={(e) => setAlpha(parseFloat(e.target.value))}
-                      min="0"
-                      max="1"
-                      step="0.05"
-                    />
-                    <small className="text-muted d-block mt-2">
-                      0.5 = balanced | &lt;0.5 = favor A | &gt;0.5 = favor B
-                    </small>
-                  </Form.Group>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={6}>
-              <Card>
-                <Card.Header className="bg-light">
-                  <h6 className="mb-0">Results</h6>
-                </Card.Header>
-                <Card.Body>
-                  <Form.Group>
-                    <Form.Label>How many films to show?</Form.Label>
-                    <Form.Control
-                      type="number"
-                      min="1"
-                      max="50"
-                      value={limit}
-                      onChange={(e) =>
-                        setLimit(Math.min(50, Math.max(1, parseInt(e.target.value) || 1)))
-                      }
-                    />
-                    <small className="text-muted d-block mt-2">Maximum: 50 results</small>
-                  </Form.Group>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
+        <Row className="mb-4">
+          <Col md={6} className="mx-auto text-center">
+            <input
+              type="range"
+              className="form-range blend-slider"
+              value={alpha}
+              onChange={(e) => setAlpha(parseFloat(e.target.value))}
+              min="0"
+              max="1"
+              step="0.05"
+            />
+            <small className="text-muted d-block mt-2">
+              Which choice is more important?
+            </small>
+          </Col>
+        </Row>
+      )}
 
-          {/* Action Buttons */}
-          <Row className="mb-4">
-            <Col className="d-flex gap-2">
+      {/* Action Button */}
+      {filmA && filmB && (
+        <Row className="mb-5">
+          <Col>
+            <div className="d-flex gap-2 justify-content-center">
               <Button
-                variant="primary"
-                size="lg"
+                variant="warning"
                 onClick={handleSearch}
                 disabled={!canSearch || isLoading}
-                style={{ flex: 1 }}
               >
                 {isLoading ? (
                   <>
@@ -355,20 +299,19 @@ function BlendModePage() {
                     Finding...
                   </>
                 ) : (
-                  "Find Compromise Films"
+                  "Find matching films"
                 )}
               </Button>
               <Button
-                variant="outline-secondary"
-                size="lg"
+                variant="outline-light"
                 onClick={handleReset}
                 disabled={isLoading}
               >
                 Reset
               </Button>
-            </Col>
-          </Row>
-        </>
+            </div>
+          </Col>
+        </Row>
       )}
 
       {/* Error Display */}
@@ -381,20 +324,13 @@ function BlendModePage() {
 
       {/* Results */}
       {hasSearched && results && (
-        <>
-          <Row className="mb-3">
-            <Col>
-              <h3>
-                Compromise Films{" "}
-                <Badge bg="success">{results.meta?.returned || 0}</Badge>
-              </h3>
-              {results.meta && (
-                <small className="text-muted">
-                  α: {results.meta.alpha.toFixed(2)} | Showing {results.meta.returned} of {results.meta.limit} results
-                </small>
-              )}
-            </Col>
-          </Row>
+        <div className="blend-results-container">
+          <h2 className="fh-section-title">Our suggestions</h2>
+          {results.meta && (
+            <small className="text-muted d-block mb-4">
+              Film A {(results.meta.alpha * 100).toFixed(0)}% • Film B {((1 - results.meta.alpha) * 100).toFixed(0)}%
+            </small>
+          )}
 
           {results.results?.length > 0 ? (
             <Row className="g-4">
@@ -407,11 +343,7 @@ function BlendModePage() {
           ) : (
             <Alert variant="info">No compromise films found. Try adjusting your settings.</Alert>
           )}
-        </>
-      )}
-
-      {!hasSearched && filmA && filmB && (
-        <Alert variant="info">💡 Ready to blend? Click "Find Compromise Films" to see results!</Alert>
+        </div>
       )}
     </Container>
   );

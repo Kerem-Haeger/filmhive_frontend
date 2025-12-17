@@ -1,50 +1,262 @@
-.blend-input-card {
-  border: 1px solid #dee2e6;
-  border-radius: 0.25rem;
+/* Blend Mode Page - uses standard page layout */
+
+/* Film Search Input Styling */
+.film-search-wrapper {
+  background-color: var(--fh-bg-elevated);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(245, 197, 24, 0.2);
 }
 
-.blend-input-card .card-header {
-  border-bottom: 1px solid #dee2e6;
+.film-search-wrapper .form-label {
+  color: var(--fh-gold);
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+}
+
+.film-search-wrapper .form-control {
+  background-color: #0a0a0a;
+  border: 1px solid rgba(245, 197, 24, 0.3);
+  color: var(--fh-text);
+  font-weight: 300;
+}
+
+.film-search-wrapper .form-control:focus {
+  background-color: #0a0a0a;
+  border-color: var(--fh-gold);
+  color: var(--fh-text);
+  box-shadow: 0 0 0 0.2rem rgba(245, 197, 24, 0.25);
+}
+
+.film-search-wrapper .form-control::placeholder {
+  color: var(--fh-text-muted);
+}
+
+/* Search Results Dropdown */
+.film-search-results {
+  background-color: var(--fh-bg-elevated);
+  border: 1px solid rgba(245, 197, 24, 0.2);
+  border-top: none;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.film-search-results .list-group-item {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(245, 197, 24, 0.1);
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: var(--fh-text);
+}
+
+.film-search-results .list-group-item:hover {
+  background-color: rgba(245, 197, 24, 0.1);
+}
+
+.film-search-results .list-group-item img {
+  max-height: 60px;
+  object-fit: cover;
+  margin-right: 0.75rem;
+}
+
+/* Selected Film Card */
+.selected-film-card {
+  background-color: var(--fh-bg-elevated);
+  border: 2px solid var(--fh-gold);
   padding: 1rem;
+  border-radius: 0.5rem;
+  margin-top: 0.75rem;
 }
 
-.blend-input-card .card-header h5 {
-  color: #495057;
-  font-weight: 600;
-}
-
-.blend-control-card {
-  border: 1px solid #dee2e6;
+.selected-film-card img {
+  max-height: 150px;
+  object-fit: cover;
+  margin-bottom: 0.75rem;
   border-radius: 0.25rem;
 }
 
-.blend-control-card .card-header {
-  border-bottom: 1px solid #dee2e6;
-  padding: 0.75rem 1rem;
+.selected-film-card h6 {
+  color: var(--fh-text);
+  margin-bottom: 0.25rem;
+  font-weight: 500;
 }
 
-.blend-control-card .card-header h6 {
-  color: #495057;
-  font-weight: 600;
+.selected-film-card small {
+  color: var(--fh-text-muted);
 }
 
-.blend-results-header {
+/* Alpha/Weight Control */
+.blend-alpha-control {
   margin-bottom: 1.5rem;
 }
 
-.blend-results-header h3 {
+/* Gold Slider */
+.blend-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(
+    to right,
+    var(--fh-bg),
+    var(--fh-gold),
+    var(--fh-bg)
+  );
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.blend-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--fh-gold);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(245, 197, 24, 0.5);
+  border: 2px solid var(--fh-bg);
+}
+
+.blend-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--fh-gold);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(245, 197, 24, 0.5);
+  border: 2px solid var(--fh-bg);
+}
+
+.blend-alpha-control .form-range {
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    var(--fh-bg),
+    var(--fh-gold),
+    var(--fh-bg)
+  );
+  border-radius: 3px;
+}
+
+.blend-alpha-control .form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--fh-gold);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(245, 197, 24, 0.5);
+  border: 2px solid var(--fh-bg);
+}
+
+.blend-alpha-control .form-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--fh-gold);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(245, 197, 24, 0.5);
+  border: 2px solid var(--fh-bg);
+}
+
+.blend-alpha-control small {
+  color: var(--fh-text-muted);
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: 300;
+}
+
+/* Results Section */
+.blend-results-container {
+  margin-top: 3rem;
+}
+
+.blend-results-container h2 {
+  font-weight: 300;
+  color: var(--fh-text);
+  margin-bottom: 1rem;
+}
+
+/* Compromise Film Card */
+.compromise-film-card {
+  background-color: var(--fh-bg-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: all 0.2s;
+  margin-bottom: 1.5rem;
+}
+
+.compromise-film-card:hover {
+  border-color: rgba(245, 197, 24, 0.6);
+  box-shadow: 0 4px 16px rgba(245, 197, 24, 0.15);
+}
+
+.compromise-film-card .poster {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(245, 197, 24, 0.1);
+}
+
+.compromise-film-card .card-body {
+  padding: 0.75rem 0.9rem 0.9rem;
+}
+
+.compromise-film-card h5 {
+  color: var(--fh-text);
+  font-weight: 400;
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
+}
+
+.compromise-film-card .text-muted {
+  color: var(--fh-text-muted);
+  font-size: 0.85rem;
+}
+
+.compromise-film-card .match-score {
+  color: var(--fh-gold);
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin: 0.75rem 0;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.compromise-film-card .match-score-label {
+  color: var(--fh-text-muted);
+  font-weight: 300;
+  font-size: 0.8rem;
+}
+
+.compromise-film-card .reasons {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(245, 197, 24, 0.1);
+}
+
+.compromise-film-card .reason-badge {
+  background-color: rgba(245, 197, 24, 0.1);
+  color: var(--fh-gold);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  display: inline-block;
+  margin-right: 0.5rem;
   margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 400;
 }
 
-.gap-2 {
-  gap: 1rem;
-}
-
-@media (max-width: 576px) {
-  .blend-control-card {
-    margin-bottom: 1rem;
+/* Responsive */
+@media (max-width: 768px) {
+  .film-search-wrapper {
+    padding: 1rem;
   }
 }
