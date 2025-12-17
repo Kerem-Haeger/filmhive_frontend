@@ -37,6 +37,9 @@ function MainNavbar() {
               </>
             ) : (
               <>
+                <Nav.Link as={NavLink} to="/blend-mode">
+                  🎬 Blend Mode
+                </Nav.Link>
                 <NavDropdown
                   title={user?.username ? `Hi, ${user.username}` : "My Account"}
                   id="user-dropdown"
