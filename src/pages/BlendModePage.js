@@ -270,8 +270,8 @@ function BlendModePage() {
               className="form-range blend-slider"
               value={alpha}
               onChange={(e) => setAlpha(parseFloat(e.target.value))}
-              min="0"
-              max="1"
+              min="0.1"
+              max="0.9"
               step="0.05"
             />
             <small className="text-muted d-block mt-2">
