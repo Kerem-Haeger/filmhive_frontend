@@ -219,3 +219,34 @@ h5 {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+/* User Dropdown Menu Styling */
+#user-dropdown {
+  background-color: #343a40;
+}
+
+.dropdown-menu {
+  background-color: #343a40;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.dropdown-item {
+  color: var(--fh-text);
+  font-weight: 300;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: rgba(245, 197, 24, 0.15);
+  color: var(--fh-gold);
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: rgba(245, 197, 24, 0.25);
+  color: var(--fh-gold);
+}
+
+.dropdown-divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}

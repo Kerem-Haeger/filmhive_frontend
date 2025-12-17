@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
@@ -37,26 +37,25 @@ function MainNavbar() {
               </>
             ) : (
               <>
-                <Nav.Link as={NavLink} to="/favourites">
-                  <i className="bi bi-heart-fill"></i> Favorites
-                </Nav.Link>
-
-                <Nav.Link as={NavLink} to="/watchlists">
-                  Watchlists
-                </Nav.Link>
-
-                <Navbar.Text className="mr-3 text-muted">
-                  {user?.username ? `Hi, ${user.username}` : "Logged in"}
-                </Navbar.Text>
-
-                <Nav.Link
-                  as="button"
-                  onClick={logout}
-                  className="btn btn-link nav-link"
-                  style={{ cursor: "pointer" }}
+                <NavDropdown
+                  title={user?.username ? `Hi, ${user.username}` : "My Account"}
+                  id="user-dropdown"
+                  align="end"
                 >
-                  Logout
-                </Nav.Link>
+                  <NavDropdown.Item as={NavLink} to="/for-you">
+                    For You
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={NavLink} to="/favourites">
+                    <i className="bi bi-heart-fill"></i> Favorites
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={NavLink} to="/watchlists">
+                    Watchlists
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={logout}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
               </>
             )}
           </Nav>

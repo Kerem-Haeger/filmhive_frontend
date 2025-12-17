@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import WatchlistsPage from "./pages/WatchlistsPage";
+import ForYouPage from "./pages/ForYouPage";
 import { AuthProvider } from "./context/AuthContext";
 import { FavoritesProvider } from "./context/FavoritesContext";
 import { NotificationProvider } from "./context/NotificationContext";
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/" element={<FilmsPage />} />
                 <Route path="/films" element={<FilmsPage />} />
                 <Route path="/films/:id" element={<FilmDetailPage />} />
+                <Route path="/for-you" element={<ForYouPage />} />
                 <Route path="/favourites" element={<FavoritesPage />} />
                 <Route path="/watchlists" element={<WatchlistsPage />} />
 

@@ -6,6 +6,10 @@ import FavoriteButton from "./FavoriteButton";
 
 function FilmCard({ film }) {
   const { id, title, year, critic_score } = film;
+  const matchScore = film.match_score;
+  const reasons = Array.isArray(film.reasons)
+    ? film.reasons.slice(0, 2)
+    : [];
 
   const rawPosterPath = film.poster_path;
   const posterUrl = buildPosterUrl(rawPosterPath) || FALLBACK_POSTER_URL;
@@ -25,11 +29,23 @@ function FilmCard({ film }) {
         />
 
         <Card.Body>
+          {matchScore != null && (
+            <Badge variant="success" className="mb-2">
+              Match {Math.round(matchScore)}%
+            </Badge>
+          )}
+
           <Card.Title>{title}</Card.Title>
           {year && (
             <Card.Subtitle className="card-subtitle mb-2">
               {year}
             </Card.Subtitle>
+          )}
+
+          {reasons.length > 0 && (
+            <div className="small text-muted mb-2">
+              {reasons.join(" | ")}
+            </div>
           )}
 
           <div className="d-flex mt-2 justify-content-between align-items-center">
