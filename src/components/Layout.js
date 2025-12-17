@@ -5,13 +5,13 @@ import NotificationAlert from "./common/NotificationAlert";
 import { NotificationContext } from "../context/NotificationContext";
 
 function Layout({ children }) {
-  const { successNotice, actionError } = useContext(NotificationContext) || {};
+  const { successNotice, actionError, clearError } = useContext(NotificationContext) || {};
   return (
     <div className="fh-app">
       <MainNavbar />
       <main className="fh-main">
         <Container className="py-4">
-          <NotificationAlert successNotice={successNotice} actionError={actionError} />
+          <NotificationAlert successNotice={successNotice} actionError={actionError} clearError={clearError} />
           {children}
         </Container>
       </main>

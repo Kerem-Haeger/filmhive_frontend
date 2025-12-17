@@ -1,6 +1,13 @@
+import { useEffect } from "react";
 import { Alert, Button } from "react-bootstrap";
 
-function NotificationAlert({ successNotice, actionError }) {
+function NotificationAlert({ successNotice, actionError, clearError }) {
+  useEffect(() => {
+    if (!actionError || typeof clearError !== "function") return;
+    const timer = setTimeout(() => clearError(), 6000);
+    return () => clearTimeout(timer);
+  }, [actionError, clearError]);
+
   return (
     <>
       {successNotice && (
