@@ -10,24 +10,33 @@ export function AuthProvider({ children }) {
 
   const isAuthenticated = Boolean(token);
 
-  const setSessionToken = (newToken) => {
+  const setSessionToken = (newToken, type = "Token") => {
     if (newToken) {
       localStorage.setItem("fh_token", newToken);
+      localStorage.setItem("fh_token_type", type);
       setToken(newToken);
     } else {
       localStorage.removeItem("fh_token");
+      localStorage.removeItem("fh_token_type");
       setToken("");
     }
   };
 
   const fetchUser = async () => {
     try {
+      // Try primary endpoint
       const res = await api.get("/auth/user/");
       setUser(res.data);
-    } catch {
-      // token invalid/expired
-      setSessionToken("");
-      setUser(null);
+    } catch (err1) {
+      try {
+        // Fallback for JWT/Djoser style
+        const res2 = await api.get("/auth/users/me/");
+        setUser(res2.data);
+      } catch (err2) {
+        // token invalid/expired or endpoint mismatch
+        setSessionToken("");
+        setUser(null);
+      }
     }
   };
 
@@ -40,8 +49,13 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = async ({ username, password }) => {
+    // Use classic token login to avoid noisy 404s from missing JWT endpoints
     const res = await api.post("/auth/login/", { username, password });
-    setSessionToken(res.data.key);
+    const key = res?.data?.key || res?.data?.token;
+    if (!key) {
+      throw new Error("Login failed: no token returned");
+    }
+    setSessionToken(key, "Token");
     await fetchUser();
   };
 

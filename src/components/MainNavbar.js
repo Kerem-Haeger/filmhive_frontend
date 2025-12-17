@@ -41,6 +41,10 @@ function MainNavbar() {
                   <i className="bi bi-heart-fill"></i> Favorites
                 </Nav.Link>
 
+                <Nav.Link as={NavLink} to="/watchlists">
+                  Watchlists
+                </Nav.Link>
+
                 <Navbar.Text className="mr-3 text-muted">
                   {user?.username ? `Hi, ${user.username}` : "Logged in"}
                 </Navbar.Text>
