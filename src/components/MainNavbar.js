@@ -19,12 +19,6 @@ function MainNavbar() {
 
         <Navbar.Toggle aria-controls="main-navbar-nav" />
         <Navbar.Collapse id="main-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link as={NavLink} to="/films">
-              Films
-            </Nav.Link>
-          </Nav>
-
           <Nav className="ml-auto">
             {!isAuthenticated ? (
               <>
