@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
 
   const isAuthenticated = Boolean(token);
 
-  const setSessionToken = (newToken, type = "Token") => {
+  const setSessionToken = useCallback((newToken, type = "Token") => {
     if (newToken) {
       localStorage.setItem("fh_token", newToken);
       localStorage.setItem("fh_token_type", type);
@@ -20,9 +20,9 @@ export function AuthProvider({ children }) {
       localStorage.removeItem("fh_token_type");
       setToken("");
     }
-  };
+  }, []);
 
-  const fetchUser = async () => {
+  const fetchUser = useCallback(async () => {
     try {
       // Try primary endpoint
       const res = await api.get("/auth/user/");
@@ -38,15 +38,14 @@ export function AuthProvider({ children }) {
         setUser(null);
       }
     }
-  };
+  }, [setSessionToken]);
 
   useEffect(() => {
     (async () => {
       if (token) await fetchUser();
       setIsBooting(false);
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [token, fetchUser]);
 
   const login = useCallback(async ({ username, password }) => {
     // Use classic token login to avoid noisy 404s from missing JWT endpoints
@@ -57,7 +56,7 @@ export function AuthProvider({ children }) {
     }
     setSessionToken(key, "Token");
     await fetchUser();
-  }, []);
+  }, [fetchUser, setSessionToken]);
 
   const register = useCallback(async ({ username, email, password1, password2 }) => {
     const payload = { username, password1, password2 };
@@ -78,7 +77,7 @@ export function AuthProvider({ children }) {
       setSessionToken("");
       setUser(null);
     }
-  }, []);
+  }, [setSessionToken]);
 
 const value = useMemo(() => ({
   user,

@@ -8,6 +8,7 @@ import FilterBar from "../components/filters/FilterBar";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { useFilmFilters } from "../hooks/useFilmFilters";
 import { useFilmSearch } from "../hooks/useFilmSearch";
+import AuthCtaBanner from "../components/common/AuthCtaBanner";
 
 function FilmsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -100,6 +101,7 @@ function FilmsPage() {
 
   return (
     <>
+      <AuthCtaBanner />
       <h1 className="fh-page-title mb-3">Browse films</h1>
 
       <div

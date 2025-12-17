@@ -250,3 +250,44 @@ h5 {
 .dropdown-divider {
   border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
+
+/* CTA Banner */
+.fh-cta-banner {
+  background: linear-gradient(180deg, rgba(28,28,28,0.9) 0%, rgba(22,22,22,0.9) 100%);
+  border: 1px solid rgba(245, 197, 24, 0.35);
+  border-radius: 12px;
+  padding: 16px 18px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+}
+
+.fh-cta-title {
+  font-size: 1.25rem;
+  letter-spacing: 0.03em;
+}
+
+.fh-cta-subtitle {
+  color: var(--fh-text-muted);
+}
+
+.fh-cta-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fh-cta-pill {
+  display: inline-block;
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  line-height: 1;
+  border: 1px solid rgba(245, 197, 24, 0.5);
+  color: var(--fh-gold);
+  background: rgba(245, 197, 24, 0.06);
+}
+
+@media (max-width: 767.98px) {
+  .fh-cta-banner {
+    padding: 14px;
+  }
+}
