@@ -1,4 +1,5 @@
 import { Row, Col, Badge } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { buildPosterUrl } from "../../utils/imageUtils";
 import { FALLBACK_POSTER_URL } from "../../utils/constants";
 import CastCrewSection from "./CastCrewSection";
@@ -45,7 +46,16 @@ function FilmHeader({ film, castOrPeople }) {
 
         {genres && genres.length > 0 && (
           <p className="mb-3">
-            <strong>Genres:</strong> {genres.map((g) => g.name || g).join(", ")}
+            <strong>Genres:</strong>{" "}
+            {genres.map((g, idx) => {
+              const name = g?.name || g;
+              return (
+                <span key={name}>
+                  <Link to={`/films?genres=${encodeURIComponent(name)}`}>{name}</Link>
+                  {idx < genres.length - 1 ? ", " : ""}
+                </span>
+              );
+            })}
           </p>
         )}
 
