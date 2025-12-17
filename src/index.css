@@ -59,6 +59,20 @@ h5 {
   margin-bottom: 1.5rem;
 }
 
+.fh-count-badge {
+  display: inline-block;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  line-height: 1;
+  border: 1px solid rgba(245, 197, 24, 0.65);
+  color: var(--fh-gold);
+  background: transparent;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-left: 1rem;
+}
+
 /* Back button styling */
 .fh-back-button {
   border-radius: 6px;

@@ -2,9 +2,10 @@ import { Row, Col, Badge } from "react-bootstrap";
 import { buildPosterUrl } from "../../utils/imageUtils";
 import { FALLBACK_POSTER_URL } from "../../utils/constants";
 import CastCrewSection from "./CastCrewSection";
+import FavoriteButton from "../FavoriteButton";
 
 function FilmHeader({ film, castOrPeople }) {
-  const { title, year, poster_path, overview, runtime, critic_score, genres } =
+  const { title, year, poster_path, overview, runtime, critic_score, genres, id } =
     film;
 
   const posterUrl = buildPosterUrl(poster_path) || FALLBACK_POSTER_URL;
@@ -36,6 +37,10 @@ function FilmHeader({ film, castOrPeople }) {
             </Badge>
           )}
           {runtime && <Badge bg="dark">{runtime} min</Badge>}
+          <FavoriteButton 
+            filmId={id} 
+            className="ms-2"
+          />
         </div>
 
         {genres && genres.length > 0 && (

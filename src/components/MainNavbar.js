@@ -37,6 +37,10 @@ function MainNavbar() {
               </>
             ) : (
               <>
+                <Nav.Link as={NavLink} to="/favourites">
+                  <i className="bi bi-heart-fill"></i> Favorites
+                </Nav.Link>
+
                 <Navbar.Text className="mr-3 text-muted">
                   {user?.username ? `Hi, ${user.username}` : "Logged in"}
                 </Navbar.Text>

@@ -2,6 +2,7 @@ import { Card, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { buildPosterUrl } from "../utils/imageUtils";
 import { FALLBACK_POSTER_URL } from "../utils/constants";
+import FavoriteButton from "./FavoriteButton";
 
 function FilmCard({ film }) {
   const { id, title, year, critic_score } = film;
@@ -31,12 +32,13 @@ function FilmCard({ film }) {
             </Card.Subtitle>
           )}
 
-          <div className="d-flex mt-2">
+          <div className="d-flex mt-2 justify-content-between align-items-center">
             {critic_score != null && (
               <Badge variant="info" className="mr-2">
                 Critics {parseFloat(critic_score).toFixed(1)}
               </Badge>
             )}
+            <FavoriteButton filmId={id} />
           </div>
         </Card.Body>
       </Card>
