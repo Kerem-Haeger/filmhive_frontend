@@ -82,8 +82,7 @@ function WatchlistsPage() {
       {!isLoading && listNames.length === 0 && (
         <div className="py-4">
           <p className="text-muted mb-3">
-            You haven't added any films to a watchlist yet. 
-            <Link to="/films">Browse films</Link> to populate your lists.
+            You haven't added any films to a watchlist yet. <Link to="/films">Browse films</Link> to populate your lists.
           </p>
           <Button as={Link} to="/films" variant="dark">
             Browse films
