@@ -1,5 +1,5 @@
-import { useContext, useMemo, useState, memo, useRef, useEffect } from "react";
-import { Row, Col, Badge, Form, Button, Overlay, Tooltip } from "react-bootstrap";
+import { useContext, useMemo, useState, memo } from "react";
+import { Row, Col, Badge, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { buildPosterUrl } from "../../utils/imageUtils";
@@ -24,9 +24,6 @@ function FilmHeader({ film, castOrPeople }) {
   const [selectedList, setSelectedList] = useState("");
   const [newListName, setNewListName] = useState("");
   const [isSavingWatchlist, setIsSavingWatchlist] = useState(false);
-  const [showWatchlistTip, setShowWatchlistTip] = useState(false);
-  const watchlistBtnRef = useRef(null);
-  const watchlistHideRef = useRef(null);
 
   const filmListNames = useMemo(
     () => (getListsForFilm ? getListsForFilm(id) : []),
@@ -36,24 +33,9 @@ function FilmHeader({ film, castOrPeople }) {
   const hasMultipleLists = (listNames?.length || 0) >= 2;
   const isCreatingNew = selectedList === "__CREATE_NEW__";
 
-  const showWatchlistReminder = () => {
-    setShowWatchlistTip(true);
-    if (watchlistHideRef.current) clearTimeout(watchlistHideRef.current);
-    watchlistHideRef.current = setTimeout(() => setShowWatchlistTip(false), 1800);
-  };
-
-  useEffect(() => () => {
-    if (watchlistHideRef.current) clearTimeout(watchlistHideRef.current);
-  }, []);
-
   const handleAddToWatchlist = async (e) => {
     e.preventDefault();
     if (!addToWatchlist) return;
-
-    if (!isAuthenticated) {
-      showWatchlistReminder();
-      return;
-    }
     
     let targetName;
     if (hasMultipleLists) {
@@ -168,33 +150,14 @@ function FilmHeader({ film, castOrPeople }) {
             </div>
             <div className="position-relative d-inline-block">
               <Button
-                ref={watchlistBtnRef}
                 size="sm"
                 type="submit"
                 variant="outline-warning"
-                disabled={isSavingWatchlist || isMutating}
+                disabled={isSavingWatchlist || isMutating || !isAuthenticated}
                 aria-disabled={!isAuthenticated}
-                onMouseEnter={() => {
-                  if (!isAuthenticated) showWatchlistReminder();
-                }}
-                onFocus={() => {
-                  if (!isAuthenticated) showWatchlistReminder();
-                }}
               >
                 Add to watchlist
               </Button>
-              <Overlay
-                target={watchlistBtnRef.current}
-                show={showWatchlistTip && !isAuthenticated}
-                placement="top"
-                transition={false}
-              >
-                {(props) => (
-                  <Tooltip {...props} className="fh-tooltip-dark">
-                    Please log in to save to watchlists
-                  </Tooltip>
-                )}
-              </Overlay>
             </div>
           </Form>
           {filmListNames.length > 0 && (

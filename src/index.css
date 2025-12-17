@@ -1,3 +1,6 @@
+.fh-tooltip-dark.tooltip {
+  z-index: 3000;
+}
 :root {
   --fh-bg: #121212;
   --fh-bg-elevated: #1c1c1c;
@@ -5,6 +8,22 @@
   --fh-text-muted: #b3b3b3;
   --fh-gold: #f5c518;
   /* IMDb-ish gold */
+}
+
+.fh-tooltip-dark .tooltip-inner {
+  background-color: #1c1c1c;
+  color: var(--fh-text);
+  border: 1px solid rgba(245, 197, 24, 0.65);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  font-weight: 400;
+}
+
+.fh-tooltip-dark .tooltip-arrow::before {
+  border-top-color: rgba(245, 197, 24, 0.65);
+}
+
+.fh-tooltip-dark.tooltip {
+  z-index: 3000;
 }
 
 body {

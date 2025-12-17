@@ -12,6 +12,7 @@ function FavoriteButton({ filmId, className = "" }) {
   const hideTimeoutRef = useRef(null);
 
   const favorited = isFavorited(filmId);
+  const overlayTarget = buttonRef.current;
 
   const showReminder = () => {
     setShowTooltip(true);
@@ -68,18 +69,22 @@ function FavoriteButton({ filmId, className = "" }) {
         <span>{icon}</span>
       </Button>
 
-      <Overlay
-        target={buttonRef.current}
-        show={showTooltip && !isAuthenticated}
-        placement="top"
-        transition={false}
-      >
-        {(props) => (
-          <Tooltip {...props} className="fh-tooltip-dark">
-            Please log in to favourite this film
-          </Tooltip>
-        )}
-      </Overlay>
+      {overlayTarget && (
+        <Overlay
+          target={overlayTarget}
+          show={showTooltip && !isAuthenticated}
+          placement="top"
+          transition={false}
+          container={document.body}
+          popperConfig={{ strategy: "fixed" }}
+        >
+          {(props) => (
+            <Tooltip {...props} className="fh-tooltip-dark">
+              Please log in to favourite this film
+            </Tooltip>
+          )}
+        </Overlay>
+      )}
     </>
   );
 }
