@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Button, Col, Form, Row, Spinner, Alert } from "react-bootstrap";
+import { Button, Spinner, Alert } from "react-bootstrap";
 import { Link, useSearchParams } from "react-router-dom";
 import { useWatchlists } from "../hooks/useWatchlists";
 import { AuthContext } from "../context/AuthContext";
@@ -54,26 +54,22 @@ function WatchlistsPage() {
     <div>
       <h1 className="fh-page-title mb-3">Watchlists</h1>
 
-      <Row className="align-items-end mb-3 g-3">
-        <Col md={6} lg={4}>
-          <Form.Group controlId="watchlistSelector">
-            <Form.Label className="fw-bold">Select a list</Form.Label>
-            <Form.Control
-              as="select"
-              value={selectedName}
-              onChange={(e) => setSearchParams({ name: e.target.value })}
-              disabled={!listNames.length}
-            >
-              {listNames.length === 0 && <option value="">No lists yet</option>}
-              {listNames.map((name) => (
-                <option key={name} value={name}>
-                  {name}
-                </option>
-              ))}
-            </Form.Control>
-          </Form.Group>
-        </Col>
-      </Row>
+      {listNames.length > 0 && (
+        <div className="mb-4">
+          <div className="d-flex flex-wrap gap-2">
+            {listNames.map((name) => (
+              <Button
+                key={name}
+                variant={selectedName === name ? "warning" : "outline-secondary"}
+                size="sm"
+                onClick={() => setSearchParams({ name })}
+              >
+                {name}
+              </Button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {isLoading && (
         <div className="d-flex justify-content-center py-4">
@@ -126,7 +122,7 @@ function WatchlistsPage() {
                     />
                   </Link>
                 </div>
-                <div className="ms-3 flex-grow-1">
+                <div style={{ marginLeft: "1.5rem" }} className="flex-grow-1">
                   <h5 className="mb-1">
                     <Link to={`/films/${item.film_id}`}>{title}</Link>
                   </h5>
