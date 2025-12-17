@@ -2,7 +2,6 @@ import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
-  Container,
   Row,
   Col,
   Button,
@@ -206,18 +205,16 @@ function BlendModePage() {
   // Redirect to login
   if (!isBooting && !isAuthenticated) {
     return (
-      <Container className="py-5">
-        <div className="text-center">
-          <h2 className="mb-3">Please Log In</h2>
-          <p className="mb-4">You must be logged in to use Blend Mode.</p>
-          <Button
-            variant="dark"
-            onClick={() => navigate("/login", { state: { from: "/blend-mode" } })}
-          >
-            Go to Login
-          </Button>
-        </div>
-      </Container>
+      <div className="text-center py-5">
+        <h2 className="mb-3">Please Log In</h2>
+        <p className="mb-4">You must be logged in to use Blend Mode.</p>
+        <Button
+          variant="dark"
+          onClick={() => navigate("/login", { state: { from: "/blend-mode" } })}
+        >
+          Go to Login
+        </Button>
+      </div>
     );
   }
 
@@ -240,7 +237,7 @@ function BlendModePage() {
   };
 
   return (
-    <Container className="py-5">
+    <>
       <h1 className="fh-page-title mb-3">Blend Mode</h1>
       <p className="text-muted mb-4" style={{ maxWidth: "600px" }}>
         Find your perfect film by blending two movies. Select Film A and Film B, and we'll find films that match both!
@@ -346,7 +343,7 @@ function BlendModePage() {
           )}
         </div>
       )}
-    </Container>
+    </>
   );
 }
 
