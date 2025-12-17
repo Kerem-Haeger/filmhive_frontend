@@ -18,25 +18,27 @@ function ReviewItem({
 	return (
 		<div className={containerClass}>
 			<div className="d-flex align-items-center justify-content-between mb-2">
-				<div className="d-flex align-items-center gap-2">
-					<strong>{review.user_username || "User"}</strong>
+				<div className="d-flex align-items-center">
+					<strong className="mr-3">{review.user_username || "User"}</strong>
 					{isOwner && (
-						<Badge bg="secondary">
+						<span className="text-muted mr-3" style={{ fontSize: "0.85rem" }}>
 							Your review
-						</Badge>
+						</span>
 					)}
 					{review.rating != null && (
-						<div className="d-flex align-items-center gap-1">
-							<StarRatings
-								rating={review.rating}
-								numberOfStars={10}
-								starRatedColor="#f5c518"
-								starEmptyColor="rgba(255, 255, 255, 0.2)"
-								starDimension="16px"
-								starSpacing="2px"
-								readOnly
-								name="review-rating"
-							/>
+						<div className="d-flex align-items-center">
+							<div className="mr-2">
+								<StarRatings
+									rating={review.rating}
+									numberOfStars={10}
+									starRatedColor="#f5c518"
+									starEmptyColor="rgba(255, 255, 255, 0.2)"
+									starDimension="16px"
+									starSpacing="2px"
+									readOnly
+									name="review-rating"
+								/>
+							</div>
 							<span className="text-muted" style={{ fontSize: "0.85rem" }}>
 								({review.rating}/10)
 							</span>
