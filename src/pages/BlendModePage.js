@@ -226,7 +226,8 @@ function BlendModePage() {
   const handleSearch = () => {
     if (canSearch) {
       setHasSearched(true);
-      fetchCompromise(filmA.id, filmB.id, alpha, 10);
+      // Invert alpha so slider left = Film A, slider right = Film B
+      fetchCompromise(filmA.id, filmB.id, 1 - alpha, 10);
     }
   };
 
