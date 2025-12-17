@@ -1,4 +1,4 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState, useMemo } from "react";
 import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 import api from "../services/api";
@@ -211,7 +211,7 @@ export function FavoritesProvider({ children }) {
     [favorites]
   );
 
-  const value = {
+  const value = useMemo(() => ({
     favorites,
     favoriteFilms,
     isLoading,
@@ -221,7 +221,7 @@ export function FavoritesProvider({ children }) {
     removeFavorite,
     toggleFavorite,
     isFavorited,
-  };
+  }), [favorites, favoriteFilms, isLoading, error, fetchFavorites, addFavorite, removeFavorite, toggleFavorite, isFavorited]);
 
   return (
     <FavoritesContext.Provider value={value}>

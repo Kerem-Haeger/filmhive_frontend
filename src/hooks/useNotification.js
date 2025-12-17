@@ -1,6 +1,7 @@
 import {
     useRef,
-    useState
+    useState,
+    useCallback
 } from "react";
 
 export function useNotification() {
@@ -8,7 +9,7 @@ export function useNotification() {
     const [actionError, setActionError] = useState("");
     const successTimerRef = useRef(null);
 
-    const showSuccess = (text, opts = {}) => {
+    const showSuccess = useCallback((text, opts = {}) => {
         const durationMs = opts.durationMs ?? 3000;
 
         setSuccessNotice({
@@ -18,14 +19,14 @@ export function useNotification() {
 
         if (successTimerRef.current) clearTimeout(successTimerRef.current);
         successTimerRef.current = setTimeout(() => setSuccessNotice(null), durationMs);
-    };
+    }, []);
 
-    const clearError = () => setActionError("");
+    const clearError = useCallback(() => setActionError(""), []);
 
-    const clearNotifications = () => {
+    const clearNotifications = useCallback(() => {
         setSuccessNotice(null);
         setActionError("");
-    };
+    }, []);
 
     return {
         successNotice,

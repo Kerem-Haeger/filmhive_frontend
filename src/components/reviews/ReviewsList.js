@@ -1,3 +1,4 @@
+import { memo } from "react";
 import ReviewItem from "./ReviewItem";
 
 function ReviewsList({
@@ -45,4 +46,4 @@ function ReviewsList({
   );
 }
 
-export default ReviewsList;
+export default memo(ReviewsList);

@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useMemo, useCallback } from "react";
 import api from "../services/api";
 
 export const AuthContext = createContext(null);
@@ -48,7 +48,7 @@ export function AuthProvider({ children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const login = async ({ username, password }) => {
+  const login = useCallback(async ({ username, password }) => {
     // Use classic token login to avoid noisy 404s from missing JWT endpoints
     const res = await api.post("/auth/login/", { username, password });
     const key = res?.data?.key || res?.data?.token;
@@ -57,9 +57,9 @@ export function AuthProvider({ children }) {
     }
     setSessionToken(key, "Token");
     await fetchUser();
-  };
+  }, []);
 
-  const register = async ({ username, email, password1, password2 }) => {
+  const register = useCallback(async ({ username, email, password1, password2 }) => {
     const payload = { username, password1, password2 };
 
     const cleanedEmail = (email || "").trim();
@@ -69,18 +69,18 @@ export function AuthProvider({ children }) {
 
     // login after successful registration
     await login({ username, password: password1 });
-    };
+    }, [login]);
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     try {
       await api.post("/auth/logout/");
     } finally {
       setSessionToken("");
       setUser(null);
     }
-  };
+  }, []);
 
-const value = {
+const value = useMemo(() => ({
   user,
   token,
   isAuthenticated,
@@ -88,7 +88,7 @@ const value = {
   login,
   register,
   logout,
-};
+}), [user, token, isAuthenticated, isBooting, login, register, logout]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

@@ -1,6 +1,7 @@
 import {
     useEffect,
-    useState
+    useState,
+    useCallback
 } from "react";
 
 export function useReviewForm(myReview, isAuthenticated) {
@@ -22,7 +23,7 @@ export function useReviewForm(myReview, isAuthenticated) {
         }
     }, [myReview, isAuthenticated]);
 
-    const resetForm = () => {
+    const resetForm = useCallback(() => {
         if (myReview) {
             setRating(myReview.rating ?? 8);
             setBody(myReview.body ?? "");
@@ -31,7 +32,7 @@ export function useReviewForm(myReview, isAuthenticated) {
             setBody("");
         }
         setIsEditing(false);
-    };
+    }, [myReview]);
 
     return {
         rating,

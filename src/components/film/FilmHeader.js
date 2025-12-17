@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from "react";
+import { useContext, useMemo, useState, memo } from "react";
 import { Row, Col, Badge, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
@@ -187,4 +187,4 @@ function FilmHeader({ film, castOrPeople }) {
   );
 }
 
-export default FilmHeader;
+export default memo(FilmHeader);

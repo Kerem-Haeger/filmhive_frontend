@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback, useMemo } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Row, Col, Spinner, Button } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
@@ -52,7 +52,7 @@ function FilmDetailPage() {
 
   const [isSubmittingReview, setIsSubmittingReview] = useState(false);
 
-  const from = location.pathname + location.search;
+  const from = useMemo(() => location.pathname + location.search, [location.pathname, location.search]);
 
   useEffect(() => {
     fetchReviews();
@@ -64,7 +64,7 @@ function FilmDetailPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  const handleCreateOrUpdate = async (e) => {
+  const handleCreateOrUpdate = useCallback(async (e) => {
     e.preventDefault();
     setActionError("");
 
@@ -93,9 +93,9 @@ function FilmDetailPage() {
     } finally {
       setIsSubmittingReview(false);
     }
-  };
+  }, [isAuthenticated, rating, body, myReview, id, setActionError, showSuccess, setIsEditing, fetchReviews]);
 
-  const handleDeleteReview = async () => {
+  const handleDeleteReview = useCallback(async () => {
     if (!myReview) return;
     setActionError("");
 
@@ -110,13 +110,13 @@ function FilmDetailPage() {
       console.error(err);
       setActionError(parseApiError(err, "Could not delete review."));
     }
-  };
+  }, [myReview, setActionError, showSuccess, setIsEditing, fetchReviews]);
 
-  const handleToggleLike = (review) => {
+  const handleToggleLike = useCallback((review) => {
     toggleLike(review, setActionError);
-  };
+  }, [toggleLike, setActionError]);
 
-  const handleReport = (review) => {
+  const handleReport = useCallback((review) => {
     reportReview(
       review,
       (reportId, undoFn) => {
@@ -136,7 +136,9 @@ function FilmDetailPage() {
       },
       setActionError
     );
-  };
+  }, [reportReview, showSuccess, setActionError]);
+
+  const castOrPeople = useMemo(() => film?.cast || film?.people || [], [film]);
 
   if (isLoading) {
     return (
@@ -150,8 +152,6 @@ function FilmDetailPage() {
 
   if (error) return <p className="text-danger">{error}</p>;
   if (!film) return <p>Film not found.</p>;
-
-  const castOrPeople = film.cast || film.people || [];
 
   return (
     <>

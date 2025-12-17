@@ -217,7 +217,7 @@ export function WatchlistsProvider({ children }) {
     [items]
   );
 
-  const value = {
+  const value = useMemo(() => ({
     items: itemsWithFilms,
     listNames,
     isLoading,
@@ -229,7 +229,7 @@ export function WatchlistsProvider({ children }) {
     getItemsForName,
     getListsForFilm,
     isFilmInList,
-  };
+  }), [itemsWithFilms, listNames, isLoading, isMutating, error, loadWatchlists, addToWatchlist, removeFromWatchlist, getItemsForName, getListsForFilm, isFilmInList]);
 
   return (
     <WatchlistsContext.Provider value={value}>

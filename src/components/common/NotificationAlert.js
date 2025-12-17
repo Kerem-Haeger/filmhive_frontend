@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, memo } from "react";
 import { Alert, Button } from "react-bootstrap";
 
 function NotificationAlert({ successNotice, actionError, clearError }) {
@@ -32,4 +32,4 @@ function NotificationAlert({ successNotice, actionError, clearError }) {
   );
 }
 
-export default NotificationAlert;
+export default memo(NotificationAlert);

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { reviewService } from "../services/reviewService";
 import { parseApiError } from "../utils/errorUtils";
 
@@ -8,7 +8,7 @@ export function useReviews(filmId, user, isAuthenticated) {
   const [reviewsError, setReviewsError] = useState("");
   const [animatingLikeId, setAnimatingLikeId] = useState(null);
 
-  const fetchReviews = async () => {
+  const fetchReviews = useCallback(async () => {
     try {
       setIsReviewsLoading(true);
       setReviewsError("");
@@ -20,7 +20,7 @@ export function useReviews(filmId, user, isAuthenticated) {
     } finally {
       setIsReviewsLoading(false);
     }
-  };
+  }, [filmId]);
 
   const myReview = useMemo(() => {
     if (!isAuthenticated) return null;
@@ -33,7 +33,7 @@ export function useReviews(filmId, user, isAuthenticated) {
     return reviews.find((r) => String(r.user) === String(myId)) || null;
   }, [reviews, isAuthenticated, user]);
 
-  const toggleLike = async (review, onError) => {
+  const toggleLike = useCallback(async (review, onError) => {
     if (!isAuthenticated || review._likeBusy) return;
 
     setReviews((prev) =>
@@ -75,9 +75,9 @@ export function useReviews(filmId, user, isAuthenticated) {
         prev.map((r) => (r.id === review.id ? { ...r, _likeBusy: false } : r))
       );
     }
-  };
+  }, [isAuthenticated, fetchReviews]);
 
-  const reportReview = async (review, onSuccess, onError) => {
+  const reportReview = useCallback(async (review, onSuccess, onError) => {
     if (!isAuthenticated || review._reportBusy) return;
 
     if (!window.confirm("Report this review?")) return;
@@ -108,7 +108,7 @@ export function useReviews(filmId, user, isAuthenticated) {
       console.error(err);
       if (onError) onError(parseApiError(err, "Could not report review."));
     }
-  };
+  }, [isAuthenticated, fetchReviews]);
 
   return {
     reviews,
