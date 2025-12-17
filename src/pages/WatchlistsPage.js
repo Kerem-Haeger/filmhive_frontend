@@ -98,7 +98,7 @@ function WatchlistsPage() {
       )}
 
       {!isLoading && currentItems.length > 0 && (
-        <div className="d-flex flex-column gap-3">
+        <div className="d-flex flex-column" style={{ gap: "1rem" }}>
           {currentItems.map((item) => {
             const film = item.film;
             const title = film?.title || "View film";
@@ -107,7 +107,8 @@ function WatchlistsPage() {
             return (
               <div
                 key={item.id}
-                className="d-flex align-items-center bg-dark rounded p-2 shadow-sm"
+                className="d-flex align-items-center rounded p-2 shadow-sm"
+                style={{ backgroundColor: "rgba(52, 58, 64, 0.3)" }}
               >
                 <div style={{ width: "72px" }} className="flex-shrink-0">
                   <Link to={`/films/${item.film_id}`}>
