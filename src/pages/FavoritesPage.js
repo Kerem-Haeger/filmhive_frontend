@@ -78,9 +78,10 @@ function FavoritesPage() {
         <span className="fh-count-badge ms-3 align-self-center">{favoriteFilms.length}</span>
       </h2>
 
-      <Row className="g-4">
+      {/* Bootstrap 4 doesn't support g-* gutter utilities; add vertical spacing via mb-4 on cols */}
+      <Row>
         {favoriteFilms.map((film) => (
-          <Col key={film.id} xs={12} sm={6} md={4} lg={3}>
+          <Col key={film.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
             <FilmCard film={film} />
           </Col>
         ))}
