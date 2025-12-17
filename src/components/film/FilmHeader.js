@@ -7,8 +7,9 @@ import { FALLBACK_POSTER_URL } from "../../utils/constants";
 import CastCrewSection from "./CastCrewSection";
 import FavoriteButton from "../FavoriteButton";
 import { useWatchlists } from "../../hooks/useWatchlists";
+import StarRatings from "react-star-ratings";
 
-function FilmHeader({ film, castOrPeople }) {
+function FilmHeader({ film, castOrPeople, averageRating }) {
   const { title, year, poster_path, overview, runtime, critic_score, genres, id } =
     film;
 
@@ -93,6 +94,32 @@ function FilmHeader({ film, castOrPeople }) {
             className="ms-2"
           />
         </div>
+
+        {averageRating != null ? (
+          <div className="mb-3 d-flex align-items-center gap-2">
+            <span className="text-muted">Our users rate this film</span>
+            <div className="mx-2">
+              <StarRatings
+                rating={averageRating}
+                numberOfStars={10}
+                starRatedColor="#f5c518"
+                starEmptyColor="rgba(255, 255, 255, 0.2)"
+                starDimension="18px"
+                starSpacing="2px"
+                name="average-rating"
+              />
+            </div>
+            <span className="text-muted" style={{ fontSize: "0.9rem" }}>
+              ({averageRating.toFixed(1)}/10)
+            </span>
+          </div>
+        ) : (
+          <div className="mb-3">
+            <span className="text-muted">
+              Our users have not rated this film yet - be the first!
+            </span>
+          </div>
+        )}
 
         <div className="mb-3">
           <Form

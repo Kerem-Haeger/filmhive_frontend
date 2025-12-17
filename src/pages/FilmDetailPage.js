@@ -172,6 +172,14 @@ function FilmDetailPage() {
 
   const castOrPeople = useMemo(() => film?.cast || film?.people || [], [film]);
 
+  const averageRating = useMemo(() => {
+    if (!reviews || reviews.length === 0) return null;
+    const ratingsOnly = reviews.filter(r => r.rating != null);
+    if (ratingsOnly.length === 0) return null;
+    const sum = ratingsOnly.reduce((acc, r) => acc + r.rating, 0);
+    return sum / ratingsOnly.length;
+  }, [reviews]);
+
   if (isLoading) {
     return (
       <div className="d-flex justify-content-center py-5">
@@ -200,7 +208,7 @@ function FilmDetailPage() {
         actionError={actionError}
       />
 
-      <FilmHeader film={film} castOrPeople={castOrPeople} />
+      <FilmHeader film={film} castOrPeople={castOrPeople} averageRating={averageRating} />
 
       <Row>
         <Col md={8}>
