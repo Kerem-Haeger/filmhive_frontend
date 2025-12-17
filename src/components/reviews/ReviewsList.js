@@ -9,6 +9,7 @@ function ReviewsList({
   animatingLikeId,
   onToggleLike,
   onReport,
+  myReviewId,
 }) {
   if (isLoading) {
     return <p className="text-muted">Loading reviews...</p>;
@@ -40,6 +41,9 @@ function ReviewsList({
           animatingLikeId={animatingLikeId}
           onToggleLike={onToggleLike}
           onReport={onReport}
+          isMine={
+            isAuthenticated && myReviewId != null && review.id === myReviewId
+          }
         />
       ))}
     </div>

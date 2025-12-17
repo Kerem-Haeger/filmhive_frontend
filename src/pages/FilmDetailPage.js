@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, useCallback, useMemo } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { Row, Col, Spinner, Button } from "react-bootstrap";
+import { Row, Col, Spinner, Button, Dropdown } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { useFilmDetails } from "../hooks/useFilmDetails";
 import { useReviews } from "../hooks/useReviews";
@@ -51,6 +51,38 @@ function FilmDetailPage() {
   } = useReviewForm(myReview, isAuthenticated);
 
   const [isSubmittingReview, setIsSubmittingReview] = useState(false);
+  const [reviewSort, setReviewSort] = useState("likes_desc");
+  const reviewSortOptions = useMemo(
+    () => [
+      { value: "likes_desc", label: "Most liked" },
+      { value: "recent", label: "Most recent" },
+    ],
+    []
+  );
+
+  const sortedReviews = useMemo(() => {
+    const sortByLikes = reviewSort !== "recent";
+
+    const toTimestamp = (value) => {
+      const time = value ? new Date(value).getTime() : 0;
+      return Number.isFinite(time) ? time : 0;
+    };
+
+    const ordered = [...reviews].sort((a, b) => {
+      if (sortByLikes) {
+        const likesDiff = (b.likes_count ?? 0) - (a.likes_count ?? 0);
+        if (likesDiff !== 0) return likesDiff;
+      }
+
+      const timeDiff = toTimestamp(b.created_at) - toTimestamp(a.created_at);
+      return timeDiff;
+    });
+
+    if (!myReview) return ordered;
+
+    const withoutMine = ordered.filter((r) => r.id !== myReview.id);
+    return [myReview, ...withoutMine];
+  }, [reviews, myReview, reviewSort]);
 
   const from = useMemo(() => location.pathname + location.search, [location.pathname, location.search]);
 
@@ -172,15 +204,45 @@ function FilmDetailPage() {
 
       <Row>
         <Col md={8}>
-          <h2 className="h4 fh-section-title">User reviews</h2>
+          <div className="d-flex align-items-center justify-content-between mb-2">
+            <h2 className="h4 fh-section-title mb-0">User reviews</h2>
+            <div style={{ minWidth: "150px" }}>
+              <Dropdown align="end">
+                <Dropdown.Toggle
+                  variant="dark"
+                  size="sm"
+                  id="fh-review-sort"
+                  className="fh-select-compact"
+                >
+                  {
+                    reviewSortOptions.find((opt) => opt.value === reviewSort)
+                      ?.label || "Sort"
+                  }
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="fh-select-menu">
+                  {reviewSortOptions.map((opt) => (
+                    <Dropdown.Item
+                      key={opt.value}
+                      active={reviewSort === opt.value}
+                      onClick={() => setReviewSort(opt.value)}
+                      className="fh-select-item"
+                    >
+                      {opt.label}
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+          </div>
           <ReviewsList
-            reviews={reviews}
+            reviews={sortedReviews}
             isLoading={isReviewsLoading}
             error={reviewsError}
             isAuthenticated={isAuthenticated}
             animatingLikeId={animatingLikeId}
             onToggleLike={handleToggleLike}
             onReport={handleReport}
+            myReviewId={myReview?.id || null}
           />
         </Col>
 
