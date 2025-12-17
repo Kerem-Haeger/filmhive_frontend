@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Badge, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import StarRatings from "react-star-ratings";
 
 function ReviewItem({
@@ -54,13 +54,14 @@ function ReviewItem({
 								onClick={() => onToggleLike(review)}
 								disabled={review._likeBusy}
 							>
-								<span
-									className={`fh-thumb ${
-										review.liked_by_me ? "" : "fh-thumb-muted"
-									} ${animatingLikeId === review.id ? "fh-like-animate" : ""}`}
-								>
-									👍
-								</span>
+								<i
+									className={`${
+										review.liked_by_me ? "fa-solid" : "fa-regular"
+									} fa-thumbs-up mr-1 ${
+										animatingLikeId === review.id ? "fh-like-animate" : ""
+									}`}
+									style={{ color: "#f5c518" }}
+								></i>
 								{review.likes_count ?? 0}
 							</Button>
 							{!review.is_owner && (
@@ -76,7 +77,7 @@ function ReviewItem({
 						</>
 					) : (
 						<span className="text-muted">
-							<span className="fh-thumb fh-thumb-muted">👍</span>{" "}
+							<i className="fa-regular fa-thumbs-up mr-1"></i>
 							{review.likes_count ?? 0}
 						</span>
 					)}
