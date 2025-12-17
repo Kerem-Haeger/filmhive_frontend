@@ -21,6 +21,8 @@ function FilmHeader({ film, castOrPeople }) {
   } = useWatchlists() || {};
 
   const [watchlistName, setWatchlistName] = useState("Watchlist");
+  const [selectedList, setSelectedList] = useState("");
+  const [newListName, setNewListName] = useState("");
   const [isSavingWatchlist, setIsSavingWatchlist] = useState(false);
 
   const filmListNames = useMemo(
@@ -28,13 +30,33 @@ function FilmHeader({ film, castOrPeople }) {
     [getListsForFilm, id]
   );
 
+  const hasMultipleLists = (listNames?.length || 0) >= 2;
+  const isCreatingNew = selectedList === "__CREATE_NEW__";
+
   const handleAddToWatchlist = async (e) => {
     e.preventDefault();
     if (!addToWatchlist) return;
-    const targetName = (watchlistName || "").trim() || "Watchlist";
+    
+    let targetName;
+    if (hasMultipleLists) {
+      if (isCreatingNew) {
+        targetName = (newListName || "").trim() || "Watchlist";
+      } else {
+        targetName = selectedList || (listNames?.[0] || "Watchlist");
+      }
+    } else {
+      targetName = (watchlistName || "").trim() || "Watchlist";
+    }
+    
     setIsSavingWatchlist(true);
     await addToWatchlist(id, targetName);
     setIsSavingWatchlist(false);
+    
+    // Reset new list input after successful add
+    if (isCreatingNew) {
+      setNewListName("");
+      setSelectedList(listNames?.[0] || "");
+    }
   };
 
   const posterUrl = buildPosterUrl(poster_path) || FALLBACK_POSTER_URL;
@@ -74,23 +96,58 @@ function FilmHeader({ film, castOrPeople }) {
 
         <div className="mb-3">
           <Form
-            className="d-flex flex-wrap align-items-center gap-2"
+            className="d-flex flex-wrap align-items-start gap-2"
             onSubmit={handleAddToWatchlist}
           >
-            <Form.Control
-              size="sm"
-              type="text"
-              list="watchlist-name-options"
-              placeholder="Watchlist name"
-              value={watchlistName}
-              onChange={(e) => setWatchlistName(e.target.value)}
-              style={{ maxWidth: "220px" }}
-            />
-            <datalist id="watchlist-name-options">
-              {listNames?.map((name) => (
-                <option key={name} value={name} />
-              ))}
-            </datalist>
+            <div className="d-flex flex-column gap-2">
+              {hasMultipleLists ? (
+                <>
+                  <Form.Control
+                    as="select"
+                    size="sm"
+                    value={selectedList}
+                    onChange={(e) => setSelectedList(e.target.value)}
+                    style={{ maxWidth: "220px" }}
+                  >
+                    {!selectedList && <option value="">Select a list...</option>}
+                    {listNames?.map((name) => (
+                      <option key={name} value={name}>
+                        {name}
+                      </option>
+                    ))}
+                    <option value="__CREATE_NEW__">+ Create new list</option>
+                  </Form.Control>
+                  {isCreatingNew && (
+                    <Form.Control
+                      size="sm"
+                      type="text"
+                      placeholder="New list name"
+                      value={newListName}
+                      onChange={(e) => setNewListName(e.target.value)}
+                      style={{ maxWidth: "220px" }}
+                      autoFocus
+                    />
+                  )}
+                </>
+              ) : (
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  list="watchlist-name-options"
+                  placeholder="Watchlist name"
+                  value={watchlistName}
+                  onChange={(e) => setWatchlistName(e.target.value)}
+                  style={{ maxWidth: "220px" }}
+                />
+              )}
+              {!hasMultipleLists && (
+                <datalist id="watchlist-name-options">
+                  {listNames?.map((name) => (
+                    <option key={name} value={name} />
+                  ))}
+                </datalist>
+              )}
+            </div>
             <Button
               size="sm"
               type="submit"
