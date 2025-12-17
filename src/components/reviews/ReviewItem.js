@@ -50,7 +50,8 @@ function ReviewItem({
 						<>
 							<Button
 								size="sm"
-								variant={review.liked_by_me ? "success" : "outline-light"}
+								variant="dark"
+								className="fh-like-btn"
 								onClick={() => onToggleLike(review)}
 								disabled={review._likeBusy}
 							>
@@ -60,7 +61,11 @@ function ReviewItem({
 									} fa-thumbs-up mr-1 ${
 										animatingLikeId === review.id ? "fh-like-animate" : ""
 									}`}
-									style={{ color: "#f5c518" }}
+									style={{
+										color: "#f5c518",
+										fontSize: "1.2rem",
+										marginRight: "6px",
+									}}
 								></i>
 								{review.likes_count ?? 0}
 							</Button>

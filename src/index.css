@@ -292,6 +292,14 @@ h5 {
   animation: fh-like-pop 0.25s ease-out;
 }
 
+.fh-like-btn {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: #f5c518 !important;
+  padding: 6px 10px;
+}
+
 .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
