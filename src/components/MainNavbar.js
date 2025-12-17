@@ -37,9 +37,6 @@ function MainNavbar() {
               </>
             ) : (
               <>
-                <Nav.Link as={NavLink} to="/blend-mode">
-                  🎬 Blend Mode
-                </Nav.Link>
                 <NavDropdown
                   title={user?.username ? `Hi, ${user.username}` : "My Account"}
                   id="user-dropdown"
@@ -47,6 +44,9 @@ function MainNavbar() {
                 >
                   <NavDropdown.Item as={NavLink} to="/for-you">
                     For You
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={NavLink} to="/blend-mode">
+                    Blend Mode
                   </NavDropdown.Item>
                   <NavDropdown.Item as={NavLink} to="/favourites">
                     <i className="bi bi-heart-fill"></i> Favorites

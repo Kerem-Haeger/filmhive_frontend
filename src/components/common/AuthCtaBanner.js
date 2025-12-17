@@ -14,11 +14,12 @@ function AuthCtaBanner() {
         <Col md={7}>
           <h2 className="fh-cta-title mb-2">Unlock your film experience</h2>
           <p className="fh-cta-subtitle mb-3 mb-md-2">
-            Create your profile to get a personalized <strong>For You</strong> page, build
-            <strong> Watchlists</strong>, mark <strong>Favourites</strong>, and write <strong>Reviews</strong>.
+            Create your profile to get a personalized <strong>For You</strong> page, use <strong>Blend Mode</strong> to find
+            compromise films, build <strong>Watchlists</strong>, mark <strong>Favourites</strong>, and write <strong>Reviews</strong>.
           </p>
           <div className="fh-cta-pills">
             <span className="fh-cta-pill">For You</span>
+            <span className="fh-cta-pill">Blend Mode</span>
             <span className="fh-cta-pill">Watchlists</span>
             <span className="fh-cta-pill">Favourites</span>
             <span className="fh-cta-pill">Reviews</span>
