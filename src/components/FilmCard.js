@@ -51,7 +51,7 @@ function FilmCard({ film }) {
           <div className="d-flex mt-2 justify-content-between align-items-center">
             {critic_score != null && (
               <Badge variant="info" className="mr-2">
-                Critics {parseFloat(critic_score).toFixed(1)}
+                Rating: {parseFloat(critic_score).toFixed(1)}
               </Badge>
             )}
             <FavoriteButton filmId={id} />
