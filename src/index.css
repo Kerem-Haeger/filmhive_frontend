@@ -883,10 +883,12 @@ h5 {
 
 /* Favorite button styling */
 .fh-heart-button {
-  color: #dc3545;
-  text-decoration: none;
+  color: #dc3545 !important;
+  text-decoration: none !important;
   font-size: 1.5rem;
   line-height: 1;
+  display: inline-flex;
+  align-items: center;
 }
 
 .fh-heart-button-active {
@@ -895,6 +897,12 @@ h5 {
 
 .fh-heart-button-inactive {
   font-weight: 600;
+}
+
+.fh-heart-button:hover,
+.fh-heart-button:focus {
+  color: #e5535d !important;
+  text-decoration: none !important;
 }
 
 /* Cursor pointer utility */
