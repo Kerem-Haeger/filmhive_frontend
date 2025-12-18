@@ -7,6 +7,7 @@ function SortControl({ sortBy, onSortChange }) {
         as="select"
         value={sortBy}
         onChange={(e) => onSortChange(e.target.value)}
+        className="fh-form-select"
       >
         <option value="">Sort by...</option>
         <option value="title">Title (A-Z)</option>

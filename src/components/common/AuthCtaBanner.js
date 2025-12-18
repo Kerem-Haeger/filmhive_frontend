@@ -34,15 +34,15 @@ function AuthCtaBanner() {
         </Col>
         <Col md={7} className="order-md-last">
           <p className="fh-cta-subtitle mb-3 mb-md-2">
-            Create your profile to personalize your experience, discover films tailored to your taste, and connect with a community of film enthusiasts.
+            Create your profile to personalise your experience, discover films tailored to your taste, and connect with a community of film enthusiasts.
           </p>
           <div className="fh-cta-label mb-2">Get started with:</div>
           <div className="fh-cta-pills">
-            <span className="fh-cta-pill">For You</span>
-            <span className="fh-cta-pill">Blend Mode</span>
-            <span className="fh-cta-pill">Watchlists</span>
-            <span className="fh-cta-pill">Favourites</span>
-            <span className="fh-cta-pill">Reviews</span>
+            <Link to="/register" className="fh-cta-pill">For You</Link>
+            <Link to="/register" className="fh-cta-pill">Blend Mode</Link>
+            <Link to="/register" className="fh-cta-pill">Watchlists</Link>
+            <Link to="/register" className="fh-cta-pill">Favourites</Link>
+            <Link to="/register" className="fh-cta-pill">Reviews</Link>
           </div>
         </Col>
       </Row>

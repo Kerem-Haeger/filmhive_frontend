@@ -20,13 +20,12 @@ function FilterBar({
               {availableGenres.map((genre) => (
                 <Button
                   key={genre}
-                  variant={
-                    selectedGenres.includes(genre)
-                      ? "info"
-                      : "outline-secondary"
-                  }
+                  variant="none"
                   size="sm"
                   onClick={() => onGenreToggle(genre)}
+                  className={`fh-genre-btn ${
+                    selectedGenres.includes(genre) ? "fh-genre-btn-active" : ""
+                  }`}
                 >
                   {genre}
                 </Button>
@@ -49,6 +48,7 @@ function FilterBar({
                 size="sm"
                 min="1900"
                 max={new Date().getFullYear()}
+                className="fh-form-input"
               />
               <span>to</span>
               <Form.Control
@@ -61,6 +61,7 @@ function FilterBar({
                 size="sm"
                 min="1900"
                 max={new Date().getFullYear()}
+                className="fh-form-input"
               />
             </div>
           </Form.Group>

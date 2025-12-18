@@ -6,12 +6,13 @@ function SearchBar({ searchTerm, onSearchChange, onClear, resultCount, totalCoun
   return (
     <div className="flex-grow-1 position-relative">
       <Form onSubmit={(e) => e.preventDefault()}>
-        <div className="input-group">
+        <div className="input-group fh-input-group">
           <Form.Control
             type="search"
             placeholder="Search by title, year, genre, people..."
             value={searchTerm}
             onChange={onSearchChange}
+            className="fh-form-input"
           />
           {searchTerm && (
             <div className="input-group-append">
