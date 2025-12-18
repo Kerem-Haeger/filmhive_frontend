@@ -16,6 +16,11 @@ function MainNavbar() {
         <Navbar.Brand as={NavLink} to="/">
           FilmHive
         </Navbar.Brand>
+        <div className="fh-tmdb-credit">
+          <span className="fh-tmdb-text">Powered by</span>
+          <img src="/tmdb_credit_1.svg" alt="TMDB" className="fh-tmdb-logo" />
+          <span className="fh-tmdb-text">The Movie Database</span>
+        </div>
 
         <Navbar.Toggle aria-controls="main-navbar-nav" />
         <Navbar.Collapse id="main-navbar-nav">

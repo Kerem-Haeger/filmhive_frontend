@@ -44,6 +44,41 @@ body {
   min-height: 100vh;
 }
 
+.fh-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.fh-main {
+  flex: 1 0 auto;
+}
+
+.fh-footer {
+  flex-shrink: 0;
+  padding: 8px 0 12px;
+  color: var(--fh-text-muted);
+  font-size: 0.8rem;
+  background: transparent;
+}
+
+.fh-footer-link {
+  color: var(--fh-text-muted);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fh-footer-link:hover {
+  color: var(--fh-gold);
+}
+
+.fh-footer .bi {
+  font-size: 1rem;
+  line-height: 1;
+}
+
 /* Code font (kept from template) */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -422,6 +457,28 @@ h5 {
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* TMDB Credit */
+.fh-tmdb-credit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--fh-text-muted);
+  margin-left: 15px;
+  margin-right: 20px;
+  white-space: nowrap;
+}
+
+.fh-tmdb-logo {
+  height: 20px;
+  width: auto;
+  vertical-align: middle;
+}
+
+.fh-tmdb-text {
+  line-height: 1;
 }
 
 .navbar {

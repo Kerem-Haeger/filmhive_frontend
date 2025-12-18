@@ -15,7 +15,19 @@ function Layout({ children }) {
           {children}
         </Container>
       </main>
-      {/* footer later */}
+      <footer className="fh-footer">
+        <Container className="d-flex justify-content-end align-items-center">
+          <a
+            href="https://github.com/your-handle"
+            className="fh-footer-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="bi bi-github"></i>
+            <span>Your Name</span>
+          </a>
+        </Container>
+      </footer>
     </div>
   );
 }
