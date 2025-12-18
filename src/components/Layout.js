@@ -23,8 +23,8 @@ function Layout({ children }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className="fa-brands fa-github"></i>
             <span>© 2025 Kerem Haeger</span>
+            <i className="fa-brands fa-github"></i>
           </a>
         </Container>
       </footer>
