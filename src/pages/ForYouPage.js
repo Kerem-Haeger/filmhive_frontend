@@ -77,6 +77,13 @@ function ForYouPage() {
     );
   }
 
+  // Sort films by match score in descending order
+  const sortedFilms = [...films].sort((a, b) => {
+    const scoreA = a.match_score ?? 0;
+    const scoreB = b.match_score ?? 0;
+    return scoreB - scoreA;
+  });
+
   return (
     <div>
       <h1 className="fh-page-title mb-2">For You</h1>
@@ -85,7 +92,7 @@ function ForYouPage() {
       </p>
 
       <Row>
-        {films.map((film) => (
+        {sortedFilms.map((film) => (
           <Col key={film.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
             <FilmCard film={film} />
           </Col>

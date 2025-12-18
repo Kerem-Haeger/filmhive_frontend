@@ -56,10 +56,14 @@ body {
 
 .fh-footer {
   flex-shrink: 0;
-  padding: 8px 0 12px;
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  padding: 0;
   color: var(--fh-text-muted);
   font-size: 0.8rem;
   background: transparent;
+  z-index: 100;
 }
 
 .fh-footer-link {
