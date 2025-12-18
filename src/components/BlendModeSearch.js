@@ -3,7 +3,6 @@ import { Form, ListGroup, Spinner } from "react-bootstrap";
 import { buildPosterUrl } from "../utils/imageUtils";
 import { FALLBACK_POSTER_URL } from "../utils/constants";
 import api from "../services/api";
-import "./BlendModeSearch.css";
 
 function BlendModeSearch({ label, onFilmSelect, selectedFilmId }) {
   const [searchTerm, setSearchTerm] = useState("");

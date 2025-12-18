@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { buildPosterUrl } from "../utils/imageUtils";
 import { FALLBACK_POSTER_URL } from "../utils/constants";
 import FavoriteButton from "./FavoriteButton";
-import "./CompromiseFilmCard.css";
 
 function CompromiseFilmCard({ result }) {
   const { film, score, reasons } = result;
