@@ -18,13 +18,13 @@ function Layout({ children }) {
       <footer className="fh-footer">
         <Container className="d-flex justify-content-end align-items-center">
           <a
-            href="https://github.com/your-handle"
+            href="https://github.com/Kerem-Haeger"
             className="fh-footer-link"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className="bi bi-github"></i>
-            <span>Your Name</span>
+            <i className="fa-brands fa-github"></i>
+            <span>© 2025 Kerem Haeger</span>
           </a>
         </Container>
       </footer>

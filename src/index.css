@@ -74,7 +74,7 @@ body {
   color: var(--fh-gold);
 }
 
-.fh-footer .bi {
+.fh-footer .fa-github {
   font-size: 1rem;
   line-height: 1;
 }
