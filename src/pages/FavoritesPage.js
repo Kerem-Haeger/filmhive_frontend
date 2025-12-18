@@ -58,7 +58,7 @@ function FavoritesPage() {
   if (favoriteFilms.length === 0) {
     return (
       <div className="text-center py-5">
-        <i className="bi bi-heart" style={{ fontSize: "3rem", color: "#ccc" }}></i>
+        <i className="bi bi-heart fh-empty-icon"></i>
         <h2 className="mt-3 mb-2">No Favorite Films Yet</h2>
         <p className="text-muted mb-4">Start adding films to your favorites!</p>
         <Button

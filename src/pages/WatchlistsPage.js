@@ -97,7 +97,7 @@ function WatchlistsPage() {
       )}
 
       {!isLoading && currentItems.length > 0 && (
-        <div className="d-flex flex-column" style={{ gap: "1rem" }}>
+        <div className="d-flex flex-column fh-list-gap">
           {currentItems.map((item) => {
             const film = item.film;
             const title = film?.title || "View film";
@@ -106,10 +106,9 @@ function WatchlistsPage() {
             return (
               <div
                 key={item.id}
-                className="d-flex align-items-center rounded p-2 shadow-sm"
-                style={{ backgroundColor: "rgba(52, 58, 64, 0.3)" }}
+                className="d-flex align-items-center rounded p-2 shadow-sm fh-watchlist-item"
               >
-                <div style={{ width: "72px" }} className="flex-shrink-0">
+                <div className="flex-shrink-0 fh-watchlist-poster">
                   <Link to={`/films/${item.film_id}`}>
                     <img
                       src={posterUrl}
@@ -122,7 +121,7 @@ function WatchlistsPage() {
                     />
                   </Link>
                 </div>
-                <div style={{ marginLeft: "1.5rem" }} className="flex-grow-1">
+                <div className="flex-grow-1 fh-watchlist-content">
                   <h5 className="mb-1">
                     <Link to={`/films/${item.film_id}`}>{title}</Link>
                   </h5>

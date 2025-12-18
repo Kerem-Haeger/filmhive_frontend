@@ -11,7 +11,7 @@ function FilterBar({
   if (!show) return null;
 
   return (
-    <div className="border rounded p-3 mb-3" style={{ backgroundColor: "rgba(0,0,0,0.3)" }}>
+    <div className="border rounded p-3 mb-3 fh-filter-bar">
       <Row>
         <Col md={8}>
           <Form.Group className="mb-3">

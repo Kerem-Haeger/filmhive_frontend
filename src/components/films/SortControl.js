@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 
 function SortControl({ sortBy, onSortChange }) {
   return (
-    <div style={{ minWidth: "180px" }}>
+    <div className="fh-width-sort-lg">
       <Form.Control
         as="select"
         value={sortBy}

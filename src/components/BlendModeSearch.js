@@ -110,9 +110,8 @@ function BlendModeSearch({ label, onFilmSelect, selectedFilmId }) {
               {results.map((film) => (
                 <ListGroup.Item
                   key={film.id}
-                  className="d-flex align-items-center cursor-pointer"
+                  className="d-flex align-items-center fh-cursor-pointer"
                   onClick={() => handleSelectFilm(film)}
-                  style={{ cursor: "pointer" }}
                   disabled={selectedFilmId === film.id}
                 >
                   <img

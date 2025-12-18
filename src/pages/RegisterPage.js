@@ -90,7 +90,7 @@ function RegisterPage() {
   };
 
   return (
-    <div style={{ maxWidth: 520 }}>
+    <div className="fh-form-container-md">
       <h1 className="fh-page-title">Register</h1>
 
       {formError && <Alert variant="danger">{formError}</Alert>}

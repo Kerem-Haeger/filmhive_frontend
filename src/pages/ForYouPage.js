@@ -39,7 +39,7 @@ function ForYouPage() {
         <Spinner animation="border" role="status">
           <span className="sr-only">Loading recommendations...</span>
         </Spinner>
-        <p className="text-muted mt-3 mb-0" style={{ fontWeight: 300 }}>
+        <p className="text-muted mt-3 mb-0">
           Please hold on while we curate a list for you
         </p>
       </div>
@@ -67,7 +67,7 @@ function ForYouPage() {
   if (!films.length) {
     return (
       <div className="text-center py-5">
-        <i className="bi bi-stars" style={{ fontSize: "3rem", color: "#ccc" }}></i>
+        <i className="bi bi-stars fh-empty-icon"></i>
         <h2 className="mt-3 mb-2">No picks yet</h2>
         <p className="text-muted mb-4">
           Add favourites or reviews to help us tailor recommendations.

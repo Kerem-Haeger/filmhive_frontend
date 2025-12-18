@@ -214,7 +214,7 @@ function FilmDetailPage() {
         <Col md={8}>
           <div className="d-flex align-items-center justify-content-between mb-2">
             <h2 className="h4 fh-section-title mb-0">User reviews</h2>
-            <div style={{ minWidth: "150px" }}>
+            <div className="fh-width-sort">
               <Dropdown align="end">
                 <Dropdown.Toggle
                   variant="dark"

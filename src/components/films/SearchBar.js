@@ -27,7 +27,7 @@ function SearchBar({ searchTerm, onSearchChange, onClear, resultCount, totalCoun
         </div>
       </Form>
       {showResultCount && (
-        <small className="text-muted position-absolute" style={{ top: '100%', left: 0, marginTop: '4px' }}>
+        <small className="text-muted position-absolute fh-search-hint">
           {resultCount} {resultCount === 1 ? 'film' : 'films'} found
         </small>
       )}

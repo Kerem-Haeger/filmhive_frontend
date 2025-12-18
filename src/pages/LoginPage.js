@@ -88,7 +88,7 @@ function LoginPage() {
   };
 
   return (
-    <div style={{ maxWidth: 480 }}>
+    <div className="fh-form-container-sm">
       <h1 className="fh-page-title">Login</h1>
 
       {formError && <Alert variant="danger">{formError}</Alert>}

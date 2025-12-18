@@ -312,12 +312,19 @@ h5 {
 
 /* User Dropdown Menu Styling */
 #user-dropdown {
-  background-color: #343a40;
+  background-color: transparent;
 }
 
 .dropdown-menu {
-  background-color: #343a40;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(
+      180deg,
+      rgba(10, 10, 10, 0.92) 0%,
+      rgba(10, 10, 10, 0.85) 100%
+    );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
 }
 
 .dropdown-item {
@@ -339,6 +346,59 @@ h5 {
 
 .dropdown-divider {
   border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Header / Navbar (glassy obsidian) */
+.navbar.navbar-dark.bg-dark {
+  background: linear-gradient(
+      180deg,
+      rgba(10, 10, 10, 0.82) 0%,
+      rgba(10, 10, 10, 0.66) 100%
+    ) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.navbar {
+  transition: background-color 0.25s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.navbar .navbar-brand {
+  color: var(--fh-text);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+}
+
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus {
+  color: var(--fh-gold);
+  text-shadow: 0 0 10px rgba(245, 197, 24, 0.25);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: var(--fh-text-muted);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+  color: var(--fh-gold);
+}
+
+.navbar-dark .navbar-nav .nav-link.active,
+.navbar-dark .navbar-nav .show > .nav-link {
+  color: var(--fh-gold);
+  text-shadow: 0 0 10px rgba(245, 197, 24, 0.2);
+}
+
+.navbar-dark .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.navbar-dark .navbar-toggler-icon {
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.6));
 }
 
 /* CTA Banner */
@@ -380,4 +440,158 @@ h5 {
   .fh-cta-banner {
     padding: 14px;
   }
+}
+
+/* Generic small inline gap that works across BS4/BS5 without flex-gap */
+.fh-inline-gap > * {
+  margin: 0 !important; /* reset any component margins */
+}
+.fh-inline-gap > * + * {
+  margin-left: 6px !important; /* small horizontal gap only between siblings */
+}
+
+/* Utility classes for consistent sizing */
+.fh-text-sm {
+  font-size: 0.85rem;
+}
+
+.fh-text-md {
+  font-size: 0.9rem;
+}
+
+.fh-width-dropdown {
+  min-width: 220px;
+}
+
+.fh-width-input {
+  max-width: 220px;
+}
+
+.fh-width-sort {
+  min-width: 150px;
+}
+
+/* Page layout utilities */
+.fh-form-container-sm {
+  max-width: 480px;
+}
+
+.fh-form-container-md {
+  max-width: 520px;
+}
+
+.fh-form-container-lg {
+  max-width: 600px;
+}
+
+/* Watchlist item card */
+.fh-watchlist-item {
+  background-color: rgba(52, 58, 64, 0.3);
+}
+
+.fh-watchlist-poster {
+  width: 72px;
+}
+
+.fh-watchlist-content {
+  margin-left: 1.5rem;
+}
+
+.fh-list-gap {
+  gap: 1rem;
+}
+
+/* Empty state icon */
+.fh-empty-icon {
+  font-size: 3rem;
+  color: #ccc;
+}
+
+/* Blend mode utilities */
+.fh-blend-film-display {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fh-blend-poster {
+  height: 80px;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+.fh-blend-poster-sm {
+  height: 60px;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+.fh-blend-search-item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.fh-flex-1 {
+  flex: 1;
+}
+
+.fh-reasons-label {
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  color: var(--fh-text-muted);
+}
+
+.fh-margin-conditional {
+  margin-bottom: 1rem;
+}
+
+.fh-margin-conditional-active {
+  margin-bottom: 2rem;
+}
+
+/* Like button styling */
+.fh-like-icon {
+  color: #f5c518;
+  font-size: 1.2rem;
+  margin-right: 6px;
+}
+
+/* Sort control width */
+.fh-width-sort-lg {
+  min-width: 180px;
+}
+
+/* Search result count positioning */
+.fh-search-hint {
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+}
+
+/* Filter bar background */
+.fh-filter-bar {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Favorite button styling */
+.fh-heart-button {
+  color: #dc3545;
+  text-decoration: none;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.fh-heart-button-active {
+  font-weight: 700;
+}
+
+.fh-heart-button-inactive {
+  font-weight: 600;
+}
+
+/* Cursor pointer utility */
+.fh-cursor-pointer {
+  cursor: pointer;
 }

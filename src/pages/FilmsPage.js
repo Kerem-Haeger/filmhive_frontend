@@ -105,8 +105,7 @@ function FilmsPage() {
       <h1 className="fh-page-title mb-3">Browse films</h1>
 
       <div
-        className="d-flex flex-column flex-md-row align-items-start gap-3"
-        style={{ marginBottom: hasActiveFiltersOrSearch ? '2rem' : '1rem' }}
+        className={`d-flex flex-column flex-md-row align-items-start gap-3 ${hasActiveFiltersOrSearch ? 'fh-margin-conditional-active' : 'fh-margin-conditional'}`}
       >
         <SearchBar
           searchTerm={searchTerm}

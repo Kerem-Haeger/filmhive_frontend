@@ -57,14 +57,7 @@ function FavoriteButton({ filmId, className = "" }) {
         aria-label={label}
         aria-disabled={!isAuthenticated}
         title={isAuthenticated ? label : "Log in to favourite films"}
-        className={`p-0 border-0 align-self-start fh-heart-button ${className}`}
-        style={{
-          color: "#dc3545",
-          textDecoration: "none",
-          fontSize: "1.5rem",
-          lineHeight: 1,
-          fontWeight: favorited ? 700 : 600,
-        }}
+        className={`p-0 border-0 align-self-start fh-heart-button ${favorited ? 'fh-heart-button-active' : 'fh-heart-button-inactive'} ${className}`}
       >
         <span>{icon}</span>
       </Button>

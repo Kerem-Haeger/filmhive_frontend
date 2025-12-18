@@ -75,17 +75,17 @@ function FilmSearchInput({ label, onFilmSelect, selectedFilmId }) {
 
       {selectedFilm && (
         <div className="selected-film-card">
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <div className="fh-blend-film-display">
             <img
               src={buildPosterUrl(selectedFilm.poster_path) || FALLBACK_POSTER_URL}
               alt={selectedFilm.title}
-              style={{ height: "80px", objectFit: "cover", borderRadius: "0.25rem" }}
+              className="fh-blend-poster"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = FALLBACK_POSTER_URL;
               }}
             />
-            <div style={{ flex: 1 }}>
+            <div className="fh-flex-1">
               <h6 className="mb-1">{selectedFilm.title}</h6>
               {selectedFilm.year && <small className="text-muted">{selectedFilm.year}</small>}
             </div>
@@ -117,19 +117,19 @@ function FilmSearchInput({ label, onFilmSelect, selectedFilmId }) {
                 <ListGroup.Item
                   key={film.id}
                   onClick={() => handleSelectFilm(film)}
-                  style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: "0.75rem" }}
+                  className="fh-blend-search-item"
                   disabled={selectedFilmId === film.id}
                 >
                   <img
                     src={buildPosterUrl(film.poster_path) || FALLBACK_POSTER_URL}
                     alt={film.title}
-                    style={{ height: "60px", objectFit: "cover", borderRadius: "0.25rem" }}
+                    className="fh-blend-poster-sm"
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src = FALLBACK_POSTER_URL;
                     }}
                   />
-                  <div style={{ flex: 1 }}>
+                  <div className="fh-flex-1">
                     <h6 className="mb-1">{film.title}</h6>
                     {film.year && <small className="text-muted">{film.year}</small>}
                   </div>
@@ -178,7 +178,7 @@ function CompromiseResult({ result }) {
           )}
           {reasons && reasons.length > 0 && (
             <div className="reasons">
-              <div style={{ fontSize: "0.85rem", marginBottom: "0.5rem", color: "var(--fh-text-muted)" }}>Why this works:</div>
+              <div className="fh-reasons-label">Why this works:</div>
               {reasons.slice(0, 2).map((reason, idx) => (
                 <span key={idx} className="reason-badge">
                   {reason}
@@ -239,7 +239,7 @@ function BlendModePage() {
   return (
     <>
       <h1 className="fh-page-title mb-3">Blend Mode</h1>
-      <p className="text-muted mb-4" style={{ maxWidth: "600px" }}>
+      <p className="text-muted mb-4 fh-form-container-lg">
         Find your perfect film by blending two movies. Select Film A and Film B, and we'll find films that match both!
       </p>
 

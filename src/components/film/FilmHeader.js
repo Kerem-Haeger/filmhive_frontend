@@ -1,5 +1,5 @@
 import { useContext, useMemo, useState, memo } from "react";
-import { Row, Col, Badge, Form, Button } from "react-bootstrap";
+import { Row, Col, Badge, Form, Button, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { buildPosterUrl } from "../../utils/imageUtils";
@@ -21,7 +21,6 @@ function FilmHeader({ film, castOrPeople, averageRating }) {
     isMutating,
   } = useWatchlists() || {};
 
-  const [watchlistName, setWatchlistName] = useState("Watchlist");
   const [selectedList, setSelectedList] = useState("");
   const [newListName, setNewListName] = useState("");
   const [isSavingWatchlist, setIsSavingWatchlist] = useState(false);
@@ -31,7 +30,6 @@ function FilmHeader({ film, castOrPeople, averageRating }) {
     [getListsForFilm, id]
   );
 
-  const hasMultipleLists = (listNames?.length || 0) >= 2;
   const isCreatingNew = selectedList === "__CREATE_NEW__";
 
   const handleAddToWatchlist = async (e) => {
@@ -39,14 +37,14 @@ function FilmHeader({ film, castOrPeople, averageRating }) {
     if (!addToWatchlist) return;
     
     let targetName;
-    if (hasMultipleLists) {
-      if (isCreatingNew) {
-        targetName = (newListName || "").trim() || "Watchlist";
-      } else {
-        targetName = selectedList || (listNames?.[0] || "Watchlist");
-      }
+    if (isCreatingNew) {
+      targetName = (newListName || "").trim() || "Watchlist";
+    } else if (selectedList) {
+      targetName = selectedList;
+    } else if (listNames?.length) {
+      targetName = listNames[0];
     } else {
-      targetName = (watchlistName || "").trim() || "Watchlist";
+      targetName = "Watchlist";
     }
     
     setIsSavingWatchlist(true);
@@ -109,7 +107,7 @@ function FilmHeader({ film, castOrPeople, averageRating }) {
                 name="average-rating"
               />
             </div>
-            <span className="text-muted" style={{ fontSize: "0.9rem" }}>
+            <span className="text-muted fh-text-md">
               ({averageRating.toFixed(1)}/10)
             </span>
           </div>
@@ -123,69 +121,67 @@ function FilmHeader({ film, castOrPeople, averageRating }) {
 
         <div className="mb-3">
           <Form
-            className="d-flex flex-wrap align-items-start gap-2"
+            className="d-flex flex-wrap align-items-start"
             onSubmit={handleAddToWatchlist}
           >
-            <div className="d-flex flex-column gap-2">
-              {hasMultipleLists ? (
-                <>
-                  <Form.Control
-                    as="select"
-                    size="sm"
-                    value={selectedList}
-                    onChange={(e) => setSelectedList(e.target.value)}
-                    style={{ maxWidth: "220px" }}
+            <div>
+              <Dropdown>
+                <Dropdown.Toggle
+                  variant="dark"
+                  size="sm"
+                  id="fh-watchlist-select"
+                  className="fh-select-compact fh-width-dropdown"
+                >
+                  {isCreatingNew
+                    ? "Create new list"
+                    : selectedList || "Select a list..."}
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="fh-select-menu">
+                  {listNames?.map((name) => (
+                    <Dropdown.Item
+                      key={name}
+                      className="fh-select-item"
+                      active={selectedList === name}
+                      onClick={() => {
+                        setSelectedList(name);
+                        setNewListName("");
+                      }}
+                    >
+                      {name}
+                    </Dropdown.Item>
+                  ))}
+                  <Dropdown.Divider />
+                  <Dropdown.Item
+                    className="fh-select-item"
+                    active={isCreatingNew}
+                    onClick={() => setSelectedList("__CREATE_NEW__")}
                   >
-                    {!selectedList && <option value="">Select a list...</option>}
-                    {listNames?.map((name) => (
-                      <option key={name} value={name}>
-                        {name}
-                      </option>
-                    ))}
-                    <option value="__CREATE_NEW__">+ Create new list</option>
-                  </Form.Control>
-                  {isCreatingNew && (
-                    <Form.Control
-                      size="sm"
-                      type="text"
-                      placeholder="New list name"
-                      value={newListName}
-                      onChange={(e) => setNewListName(e.target.value)}
-                      style={{ maxWidth: "220px" }}
-                      autoFocus
-                    />
-                  )}
-                </>
-              ) : (
+                    + Create new list
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              {isCreatingNew && (
                 <Form.Control
                   size="sm"
                   type="text"
-                  list="watchlist-name-options"
-                  placeholder="Watchlist name"
-                  value={watchlistName}
-                  onChange={(e) => setWatchlistName(e.target.value)}
-                  style={{ maxWidth: "220px" }}
+                  placeholder="New list name"
+                  value={newListName}
+                  onChange={(e) => setNewListName(e.target.value)}
+                  className="mt-2 fh-width-input"
+                  autoFocus
                 />
               )}
-              {!hasMultipleLists && (
-                <datalist id="watchlist-name-options">
-                  {listNames?.map((name) => (
-                    <option key={name} value={name} />
-                  ))}
-                </datalist>
-              )}
             </div>
-            <div className="position-relative d-inline-block">
-              <Button
-                size="sm"
-                type="submit"
-                variant="outline-warning"
-                disabled={isSavingWatchlist || isMutating || !isAuthenticated}
-                aria-disabled={!isAuthenticated}
-              >
-                Add to watchlist
-              </Button>
-            </div>
+            <Button
+              size="sm"
+              type="submit"
+              variant="outline-warning"
+              className="ms-2"
+              disabled={isSavingWatchlist || isMutating || !isAuthenticated}
+              aria-disabled={!isAuthenticated}
+            >
+              Add to watchlist
+            </Button>
           </Form>
           {filmListNames.length > 0 && (
             <div className="text-muted small mt-2">

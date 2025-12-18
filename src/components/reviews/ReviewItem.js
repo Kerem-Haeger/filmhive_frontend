@@ -21,7 +21,7 @@ function ReviewItem({
 				<div className="d-flex align-items-center">
 					<strong className="mr-3">{review.user_username || "User"}</strong>
 					{isOwner && (
-						<span className="text-muted mr-3" style={{ fontSize: "0.85rem" }}>
+						<span className="text-muted mr-3 fh-text-sm">
 							Your review
 						</span>
 					)}
@@ -39,7 +39,7 @@ function ReviewItem({
 									name="review-rating"
 								/>
 							</div>
-							<span className="text-muted" style={{ fontSize: "0.85rem" }}>
+							<span className="text-muted fh-text-sm">
 								({review.rating}/10)
 							</span>
 						</div>
@@ -58,14 +58,9 @@ function ReviewItem({
 								<i
 									className={`${
 										review.liked_by_me ? "fa-solid" : "fa-regular"
-									} fa-thumbs-up mr-1 ${
+									} fa-thumbs-up mr-1 fh-like-icon ${
 										animatingLikeId === review.id ? "fh-like-animate" : ""
 									}`}
-									style={{
-										color: "#f5c518",
-										fontSize: "1.2rem",
-										marginRight: "6px",
-									}}
 								></i>
 								{review.likes_count ?? 0}
 							</Button>
