@@ -117,7 +117,7 @@ function FilmsPage() {
           />
         </div>
 
-        <div className="d-flex align-items-end gap-2 flex-shrink-0 fh-search-actions">
+        <div className="d-flex align-items-center gap-2 flex-shrink-0 fh-search-actions">
           <SortControl sortBy={sortBy} onSortChange={setSortBy} />
 
           <Button
