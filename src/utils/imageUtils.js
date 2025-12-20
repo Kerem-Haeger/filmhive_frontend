@@ -1,9 +1,11 @@
 import {
     BASE_MEDIA_URL,
-    TMDB_BASE_URL
+    TMDB_IMAGE_BASE,
+    TMDB_DEFAULT_SIZE
 } from "./constants";
 
-export function buildPosterUrl(rawPath) {
+// Build a TMDB or backend poster URL with optional size hint (no visual change, smaller payloads when downscaling).
+export function buildPosterUrl(rawPath, size = TMDB_DEFAULT_SIZE) {
     if (!rawPath) return null;
     const poster_path = String(rawPath);
 
@@ -15,5 +17,6 @@ export function buildPosterUrl(rawPath) {
         return `${BASE_MEDIA_URL}${poster_path}`;
     }
 
-    return `${TMDB_BASE_URL}${poster_path}`;
+    const safeSize = size || TMDB_DEFAULT_SIZE;
+    return `${TMDB_IMAGE_BASE}/${safeSize}${poster_path}`;
 }

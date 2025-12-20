@@ -84,7 +84,7 @@ function FilmSearchInput({ label, onFilmSelect, selectedFilmId }) {
         <div className="selected-film-card">
           <div className="fh-blend-film-display">
             <img
-              src={buildPosterUrl(selectedFilm.poster_path) || FALLBACK_POSTER_URL}
+              src={buildPosterUrl(selectedFilm.poster_path, "w185") || FALLBACK_POSTER_URL}
               alt={selectedFilm.title}
               className="fh-blend-poster"
               onError={(e) => {
@@ -128,7 +128,7 @@ function FilmSearchInput({ label, onFilmSelect, selectedFilmId }) {
                   disabled={selectedFilmId === film.id}
                 >
                   <img
-                    src={buildPosterUrl(film.poster_path) || FALLBACK_POSTER_URL}
+                    src={buildPosterUrl(film.poster_path, "w92") || FALLBACK_POSTER_URL}
                     alt={film.title}
                     className="fh-blend-poster-sm"
                     onError={(e) => {

@@ -63,7 +63,7 @@ function BlendModeSearch({ label, onFilmSelect, selectedFilmId }) {
         <div className="selected-film mb-3 p-3 bg-light rounded">
           <div className="d-flex align-items-center">
             <img
-              src={buildPosterUrl(selectedFilm.poster_path) || FALLBACK_POSTER_URL}
+              src={buildPosterUrl(selectedFilm.poster_path, "w185") || FALLBACK_POSTER_URL}
               alt={selectedFilm.title}
               className="selected-film-poster me-3"
               onError={(e) => {
@@ -114,7 +114,7 @@ function BlendModeSearch({ label, onFilmSelect, selectedFilmId }) {
                   disabled={selectedFilmId === film.id}
                 >
                   <img
-                    src={buildPosterUrl(film.poster_path) || FALLBACK_POSTER_URL}
+                    src={buildPosterUrl(film.poster_path, "w92") || FALLBACK_POSTER_URL}
                     alt={film.title}
                     className="search-result-poster me-3"
                     onError={(e) => {

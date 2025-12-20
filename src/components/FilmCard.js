@@ -12,7 +12,7 @@ function FilmCard({ film }) {
     : [];
 
   const rawPosterPath = film.poster_path;
-  const posterUrl = buildPosterUrl(rawPosterPath) || FALLBACK_POSTER_URL;
+  const posterUrl = buildPosterUrl(rawPosterPath, "w342") || FALLBACK_POSTER_URL;
 
   return (
     <Link to={`/films/${id}`} className="text-decoration-none text-reset">

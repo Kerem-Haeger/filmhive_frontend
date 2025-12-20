@@ -104,7 +104,7 @@ function WatchlistsPage() {
             const film = item.film;
             const title = film?.title || "View film";
             const year = film?.year;
-            const posterUrl = buildPosterUrl(film?.poster_path) || FALLBACK_POSTER_URL;
+            const posterUrl = buildPosterUrl(film?.poster_path, "w92") || FALLBACK_POSTER_URL;
             return (
               <div
                 key={item.id}
