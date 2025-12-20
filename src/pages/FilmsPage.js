@@ -107,7 +107,7 @@ function FilmsPage() {
       <div
         className={`d-flex flex-column flex-md-row align-items-start gap-3 ${hasActiveFiltersOrSearch ? 'fh-margin-conditional-active' : 'fh-margin-conditional'}`}
       >
-        <div className="mb-3 mb-md-0 flex-grow-1">
+        <div className="mb-4 mb-md-0 flex-grow-1">
           <SearchBar
             searchTerm={searchTerm}
             onSearchChange={handleSearchChange}
