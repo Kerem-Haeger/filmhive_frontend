@@ -4,7 +4,7 @@ function SearchBar({ searchTerm, onSearchChange, onClear, resultCount, totalCoun
   const showResultCount = resultCount !== totalCount;
 
   return (
-    <div className="flex-grow-1 position-relative">
+    <div className="flex-grow-1 position-relative fh-search-bar">
       <Form onSubmit={(e) => e.preventDefault()}>
         <div className="input-group fh-input-group">
           <Form.Control

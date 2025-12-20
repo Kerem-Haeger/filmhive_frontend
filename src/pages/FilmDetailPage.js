@@ -212,7 +212,7 @@ function FilmDetailPage() {
 
       <Row>
         <Col md={8} className="order-2 order-md-1">
-          <div className="d-flex align-items-center justify-content-between mb-2">
+          <div className="d-flex align-items-center justify-content-between mb-2 mt-3 mt-md-0">
             <h2 className="h4 fh-section-title mb-0">User reviews</h2>
             <div className="fh-width-sort">
               <Dropdown align="end">

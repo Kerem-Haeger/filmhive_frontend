@@ -28,6 +28,10 @@
   .fh-search-actions {
     margin-top: 0.75rem;
   }
+
+  .fh-search-bar {
+    padding-bottom: 1.6rem; /* space for the absolute result hint */
+  }
 }
 
 .App-link {
