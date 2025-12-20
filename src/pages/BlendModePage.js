@@ -25,6 +25,13 @@ function FilmSearchInput({ label, onFilmSelect, selectedFilmId }) {
   const [isSearching, setIsSearching] = useState(false);
   const [selectedFilm, setSelectedFilm] = useState(null);
 
+  // Reset internal state when parent resets
+  useEffect(() => {
+    if (selectedFilmId === undefined) {
+      setSelectedFilm(null);
+    }
+  }, [selectedFilmId]);
+
   useEffect(() => {
     if (!searchTerm.trim()) {
       setResults([]);
