@@ -107,13 +107,15 @@ function FilmsPage() {
       <div
         className={`d-flex flex-column flex-md-row align-items-start gap-3 ${hasActiveFiltersOrSearch ? 'fh-margin-conditional-active' : 'fh-margin-conditional'}`}
       >
-        <SearchBar
-          searchTerm={searchTerm}
-          onSearchChange={handleSearchChange}
-          onClear={handleClearSearch}
-          resultCount={filteredAndSortedFilms.length}
-          totalCount={films.length}
-        />
+        <div className="mb-3 mb-md-0 flex-grow-1">
+          <SearchBar
+            searchTerm={searchTerm}
+            onSearchChange={handleSearchChange}
+            onClear={handleClearSearch}
+            resultCount={filteredAndSortedFilms.length}
+            totalCount={films.length}
+          />
+        </div>
 
         <div className="d-flex align-items-end gap-2 flex-shrink-0 fh-search-actions">
           <SortControl sortBy={sortBy} onSortChange={setSortBy} />
