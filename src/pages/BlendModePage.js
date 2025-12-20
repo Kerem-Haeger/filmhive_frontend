@@ -19,18 +19,16 @@ import api from "../services/api";
 import "./BlendModePage.css";
 
 // Search Input Component
-function FilmSearchInput({ label, onFilmSelect, selectedFilmId }) {
+function FilmSearchInput({ label, onFilmSelect, selectedFilmId, selectedFilm: externalFilm }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [selectedFilm, setSelectedFilm] = useState(null);
 
-  // Reset internal state when parent resets
+  // Keep internal state in sync with parent (handles both X clicks and Reset button)
   useEffect(() => {
-    if (selectedFilmId === undefined) {
-      setSelectedFilm(null);
-    }
-  }, [selectedFilmId]);
+    setSelectedFilm(externalFilm);
+  }, [externalFilm]);
 
   useEffect(() => {
     if (!searchTerm.trim()) {
@@ -257,6 +255,7 @@ function BlendModePage() {
             label="Film A"
             onFilmSelect={setFilmA}
             selectedFilmId={filmB?.id}
+            selectedFilm={filmA}
           />
         </Col>
         <Col md={6}>
@@ -264,6 +263,7 @@ function BlendModePage() {
             label="Film B"
             onFilmSelect={setFilmB}
             selectedFilmId={filmA?.id}
+            selectedFilm={filmB}
           />
         </Col>
       </Row>
