@@ -78,7 +78,12 @@ function RegisterPage() {
         password1,
         password2,
       });
-      navigate(from, { replace: true });
+
+      // Avoid bouncing back to auth screens; default to films
+      const safeDestination = ["/login", "/register"].includes(from)
+        ? "/films"
+        : from;
+      navigate(safeDestination, { replace: true });
     } catch (err) {
       console.error(err);
       const parsed = parseApiErrors(err);
