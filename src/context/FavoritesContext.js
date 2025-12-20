@@ -1,16 +1,15 @@
-import { createContext, useCallback, useEffect, useState, useMemo } from "react";
-import { useContext } from "react";
+import { createContext, useCallback, useEffect, useState, useMemo, useContext } from "react";
 import { AuthContext } from "./AuthContext";
 import api from "../services/api";
 import { filmService } from "../services/filmService";
-import { useContext as useReactContext } from "react";
+import { formatError } from "../utils/errorUtils";
 import { NotificationContext } from "./NotificationContext";
 
 export const FavoritesContext = createContext(null);
 
 export function FavoritesProvider({ children }) {
   const { isAuthenticated, isBooting } = useContext(AuthContext);
-  const { showSuccess, setActionError } = useReactContext(NotificationContext) || {};
+  const { showSuccess, setActionError } = useContext(NotificationContext) || {};
   const [favorites, setFavorites] = useState(new Set());
   const [favoriteFilms, setFavoriteFilms] = useState([]);
   // Map filmId -> favouriteId (needed because DELETE expects favourite id)
@@ -63,8 +62,8 @@ export function FavoritesProvider({ children }) {
       );
       setFavoriteFilms(films.filter(Boolean));
     } catch (err) {
-      console.error("Error fetching favorites:", err); // DEBUG
-      setError(err?.response?.data?.detail || err?.message || "Failed to fetch favorites");
+      console.error("Error fetching favorites:", err);
+      setError(formatError(err, "Failed to fetch favourites."));
     } finally {
       if (!background) setIsLoading(false);
     }
@@ -121,7 +120,7 @@ export function FavoritesProvider({ children }) {
         }
         return true;
       } catch (err) {
-        const errorMsg = err?.response?.data?.detail || err?.message || "Failed to add favorite";
+        const errorMsg = formatError(err, "Failed to add to favourites.");
         setError(errorMsg);
         if (typeof setActionError === "function") setActionError(errorMsg);
         console.error("Error adding favorite:", err);
@@ -179,7 +178,7 @@ export function FavoritesProvider({ children }) {
         }
         return true;
       } catch (err) {
-        const errorMsg = err?.response?.data?.detail || err?.message || "Failed to remove favorite";
+        const errorMsg = formatError(err, "Failed to remove from favourites.");
         setError(errorMsg);
         if (typeof setActionError === "function") setActionError(errorMsg);
         console.error("Error removing favorite:", err);

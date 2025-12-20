@@ -172,7 +172,7 @@ function CompromiseResult({ result }) {
           <h5 className="mb-1">{title}</h5>
           {year && <small className="text-muted d-block mb-2">{year}</small>}
           {critic_score && (
-            <Badge bg="info" className="mb-2">
+            <Badge variant="info" className="mb-2">
               Rating: {parseFloat(critic_score).toFixed(2)}
             </Badge>
           )}

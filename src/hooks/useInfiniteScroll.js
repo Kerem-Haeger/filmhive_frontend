@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import api from "../services/api";
+import { formatError } from "../utils/errorUtils";
 
 export function useInfiniteScroll(initialUrl) {
   const [items, setItems] = useState([]);
@@ -37,7 +38,7 @@ export function useInfiniteScroll(initialUrl) {
     } catch (err) {
       console.error(err);
       if (isFirstPage) {
-        setError("Could not load films. Please try again.");
+        setError(formatError(err, "Could not load films. Please try again."));
       }
       setHasMore(false);
     } finally {

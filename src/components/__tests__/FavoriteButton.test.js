@@ -1,4 +1,11 @@
 import React from "react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import "@testing-library/jest-dom";
+import FavoriteButton from "../FavoriteButton";
+import { AuthContext } from "../../context/AuthContext";
+import { FavoritesContext } from "../../context/FavoritesContext";
+
 // Mock API to avoid axios ESM in Jest
 jest.mock("../../services/api", () => ({
   __esModule: true,
@@ -8,12 +15,6 @@ jest.mock("../../services/api", () => ({
     delete: jest.fn(),
   },
 }));
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import "@testing-library/jest-dom";
-import FavoriteButton from "../FavoriteButton";
-import { AuthContext } from "../../context/AuthContext";
-import { FavoritesContext } from "../../context/FavoritesContext";
 
 function renderWithProviders(ui, { isAuthenticated = false, favoritesValue = {} } = {}) {
   const defaultFavorites = {

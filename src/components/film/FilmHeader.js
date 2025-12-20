@@ -82,11 +82,11 @@ function FilmHeader({ film, castOrPeople, averageRating }) {
 
         <div className="mb-3">
           {critic_score != null && (
-            <Badge bg="info" className="me-2">
+            <Badge variant="info" className="me-2">
               Rating: {parseFloat(critic_score).toFixed(2)}
             </Badge>
           )}
-          {runtime && <Badge bg="dark">{runtime} min</Badge>}
+          {runtime && <Badge variant="dark">{runtime} min</Badge>}
           <FavoriteButton 
             filmId={id} 
             className="ms-2"

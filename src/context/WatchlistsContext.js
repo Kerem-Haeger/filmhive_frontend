@@ -4,6 +4,7 @@ import api from "../services/api";
 import { AuthContext } from "./AuthContext";
 import { NotificationContext } from "./NotificationContext";
 import { filmService } from "../services/filmService";
+import { formatError } from "../utils/errorUtils";
 
 export const WatchlistsContext = createContext(null);
 
@@ -74,7 +75,7 @@ export function WatchlistsProvider({ children }) {
         setItems(nextItems);
         await hydrateFilms(nextItems.map((it) => it.film_id));
       } catch (err) {
-        const msg = err?.response?.data?.detail || err?.message || "Failed to load watchlists";
+        const msg = formatError(err, "Failed to load watchlists.");
         setError(msg);
         if (typeof setActionError === "function") setActionError(msg);
       } finally {
@@ -131,17 +132,7 @@ export function WatchlistsProvider({ children }) {
         loadWatchlists({ background: true });
         return true;
       } catch (err) {
-        let msg = err?.response?.data?.detail || err?.message || "Failed to add to watchlist";
-        const data = err?.response?.data;
-        if (data && typeof data === "object" && !Array.isArray(data)) {
-          const parts = [];
-          Object.keys(data).forEach((key) => {
-            const val = data[key];
-            if (Array.isArray(val)) parts.push(`${key}: ${val.join(", ")}`);
-            else if (typeof val === "string") parts.push(`${key}: ${val}`);
-          });
-          if (parts.length) msg = parts.join("; ");
-        }
+        const msg = formatError(err, "Failed to add to watchlist.");
         setError(msg);
         if (typeof setActionError === "function") setActionError(msg);
         return false;
@@ -171,7 +162,7 @@ export function WatchlistsProvider({ children }) {
         }
         return true;
       } catch (err) {
-        const msg = err?.response?.data?.detail || err?.message || "Failed to remove from watchlist";
+        const msg = formatError(err, "Failed to remove from watchlist.");
         setError(msg);
         if (typeof setActionError === "function") setActionError(msg);
         return false;

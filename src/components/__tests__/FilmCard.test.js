@@ -1,4 +1,11 @@
 import React from "react";
+import { MemoryRouter } from "react-router-dom";
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import FilmCard from "../FilmCard";
+import { AuthContext } from "../../context/AuthContext";
+import { FavoritesContext } from "../../context/FavoritesContext";
+
 // Mock API to avoid axios ESM in Jest
 jest.mock("../../services/api", () => ({
   __esModule: true,
@@ -8,12 +15,6 @@ jest.mock("../../services/api", () => ({
     delete: jest.fn(),
   },
 }));
-import { MemoryRouter } from "react-router-dom";
-import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import FilmCard from "../FilmCard";
-import { AuthContext } from "../../context/AuthContext";
-import { FavoritesContext } from "../../context/FavoritesContext";
 
 function Providers({ children }) {
   const authValue = { isAuthenticated: true };

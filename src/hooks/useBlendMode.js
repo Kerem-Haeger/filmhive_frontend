@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { filmService } from "../services/filmService";
+import { formatError } from "../utils/errorUtils";
 
 export const useBlendMode = () => {
   const [results, setResults] = useState(null);
@@ -18,25 +19,7 @@ export const useBlendMode = () => {
       );
       setResults(data);
     } catch (err) {
-      let errorMessage = "Failed to find compromise films";
-      if (err.response?.status === 401) {
-        errorMessage = "You must be logged in to use Blend Mode.";
-      } else if (err.response?.status === 400) {
-        const fieldErrors = err.response?.data;
-        if (fieldErrors?.detail) {
-          errorMessage = fieldErrors.detail;
-        } else if (typeof fieldErrors === "object") {
-          errorMessage = Object.entries(fieldErrors)
-            .map(([field, messages]) => {
-              const msg = Array.isArray(messages) ? messages[0] : messages;
-              return msg;
-            })
-            .join(" ");
-        }
-      } else if (err.response?.status === 404) {
-        errorMessage = "One or both films not found.";
-      }
-      setError(errorMessage);
+      setError(formatError(err, "Failed to find compromise films."));
     } finally {
       setIsLoading(false);
     }

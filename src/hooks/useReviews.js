@@ -1,6 +1,6 @@
 import { useMemo, useState, useCallback } from "react";
 import { reviewService } from "../services/reviewService";
-import { parseApiError } from "../utils/errorUtils";
+import { parseApiError, formatError } from "../utils/errorUtils";
 
 export function useReviews(filmId, user, isAuthenticated) {
   const [reviews, setReviews] = useState([]);
@@ -16,7 +16,7 @@ export function useReviews(filmId, user, isAuthenticated) {
       setReviews(data);
     } catch (err) {
       console.error(err);
-      setReviewsError("Could not load reviews.");
+      setReviewsError(formatError(err, "Could not load reviews."));
     } finally {
       setIsReviewsLoading(false);
     }

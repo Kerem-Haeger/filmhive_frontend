@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, useCallback, useMemo } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { Row, Col, Spinner, Button, Dropdown } from "react-bootstrap";
+import { Row, Col, Spinner, Button, Dropdown, Alert } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { useFilmDetails } from "../hooks/useFilmDetails";
 import { useReviews } from "../hooks/useReviews";
@@ -190,8 +190,8 @@ function FilmDetailPage() {
     );
   }
 
-  if (error) return <p className="text-danger">{error}</p>;
-  if (!film) return <p>Film not found.</p>;
+  if (error) return <Alert variant="danger">{error}</Alert>;
+  if (!film) return <Alert variant="warning">Film not found (404).</Alert>;
 
   return (
     <>

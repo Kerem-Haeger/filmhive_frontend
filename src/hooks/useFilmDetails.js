@@ -5,6 +5,7 @@ import {
 import {
     filmService
 } from "../services/filmService";
+import { formatError } from "../utils/errorUtils";
 
 export function useFilmDetails(id) {
     const [film, setFilm] = useState(null);
@@ -20,7 +21,7 @@ export function useFilmDetails(id) {
                 setFilm(data);
             } catch (err) {
                 console.error(err);
-                setError("Could not load film details. Please try again.");
+                setError(formatError(err, "Could not load film details. Please try again."));
             } finally {
                 setIsLoading(false);
             }

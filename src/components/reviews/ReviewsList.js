@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { Alert } from "react-bootstrap";
 import ReviewItem from "./ReviewItem";
 
 function ReviewsList({
@@ -16,7 +17,7 @@ function ReviewsList({
   }
 
   if (error) {
-    return <p className="text-danger mb-0">{error}</p>;
+    return <Alert variant="danger" className="mb-0">{error}</Alert>;
   }
 
   if (reviews.length === 0) {

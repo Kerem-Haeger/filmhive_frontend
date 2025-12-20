@@ -14,6 +14,9 @@ secrets.js
 # production
 /build
 
+# cache and local artifacts
+/npm-cache
+
 # misc
 .DS_Store
 .env.local

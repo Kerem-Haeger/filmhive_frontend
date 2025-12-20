@@ -83,7 +83,7 @@ function FilmsPage() {
   if (error) {
     return (
       <div className="d-flex justify-content-center py-5">
-        <p className="text-danger mb-0">{error}</p>
+        <Alert variant="danger" className="mb-0">{error}</Alert>
       </div>
     );
   }
@@ -124,7 +124,7 @@ function FilmsPage() {
           >
             {showFilters ? "Hide" : "Show"} Filters
             {activeFilterCount > 0 && (
-              <Badge bg="warning" className="ms-2">
+              <Badge variant="warning" className="ms-2">
                 {activeFilterCount}
               </Badge>
             )}
