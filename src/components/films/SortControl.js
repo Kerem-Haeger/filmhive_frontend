@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 function SortControl({ sortBy, onSortChange }) {
   return (
     <div className="fh-width-sort-lg">
-      <Form.Group controlId="sortControl">
+      <Form.Group controlId="sortControl" className="mb-0">
         <Form.Label className="sr-only">Sort films</Form.Label>
         <Form.Control
           as="select"
