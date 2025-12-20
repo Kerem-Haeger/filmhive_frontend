@@ -211,7 +211,7 @@ function FilmDetailPage() {
       <FilmHeader film={film} castOrPeople={castOrPeople} averageRating={averageRating} />
 
       <Row>
-        <Col md={8}>
+        <Col md={8} className="order-2 order-md-1">
           <div className="d-flex align-items-center justify-content-between mb-2">
             <h2 className="h4 fh-section-title mb-0">User reviews</h2>
             <div className="fh-width-sort">
@@ -254,7 +254,7 @@ function FilmDetailPage() {
           />
         </Col>
 
-        <Col md={4}>
+        <Col md={4} className="order-1 order-md-2">
           <h2 className="h4 fh-section-title">Your review</h2>
           <ReviewForm
             isAuthenticated={isAuthenticated}

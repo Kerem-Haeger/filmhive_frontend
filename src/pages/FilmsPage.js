@@ -115,7 +115,7 @@ function FilmsPage() {
           totalCount={films.length}
         />
 
-        <div className="d-flex align-items-end gap-2 flex-shrink-0">
+        <div className="d-flex align-items-end gap-2 flex-shrink-0 fh-search-actions">
           <SortControl sortBy={sortBy} onSortChange={setSortBy} />
 
           <Button
