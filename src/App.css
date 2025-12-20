@@ -26,11 +26,11 @@
 
 @media (max-width: 767.98px) {
   .fh-search-actions {
-    margin-top: 0.75rem;
+    margin-top: 1.5rem;
   }
 
   .fh-search-bar {
-    padding-bottom: 1.6rem; /* space for the absolute result hint */
+    margin-bottom: 0.5rem;
   }
 }
 
