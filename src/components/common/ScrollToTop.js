@@ -33,7 +33,7 @@ function ScrollToTop() {
       onClick={scrollToTop}
       aria-label="Scroll to top"
     >
-      <i className="bi bi-arrow-up"></i> Top
+      ↑ Back to Top
     </Button>
   );
 }

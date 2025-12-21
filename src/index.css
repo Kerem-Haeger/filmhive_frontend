@@ -912,7 +912,7 @@ h5 {
 /* Scroll to top button */
 .fh-scroll-to-top {
   position: fixed;
-  bottom: 24px;
+  top: 80px;
   right: 24px;
   z-index: 999;
   background-color: rgba(28, 28, 28, 0.95) !important;
@@ -935,10 +935,6 @@ h5 {
 
 .fh-scroll-to-top:active {
   transform: translateY(0);
-}
-
-.fh-scroll-to-top i {
-  margin-right: 4px;
 }
 
 /* Modal styling to match dark theme */
