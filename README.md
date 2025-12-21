@@ -488,6 +488,28 @@ Real-time feedback system for user actions.
 
 - TMDB API (film metadata)
 
+## Testing
+
+FilmHive includes comprehensive testing coverage for components, user flows, and API integration.
+
+For detailed testing documentation, manual testing procedures, and test results, please see [TESTING.md](TESTING.md).
+
+**Test Suite Overview:**
+- Component unit tests (FavoriteButton, FilmCard, SearchBar)
+- User story validation
+- API endpoint testing
+- Authentication flow testing
+
+To run the automated tests:
+```bash
+npm test
+```
+
+To run ESLint:
+```bash
+npm run lint
+```
+
 ## Deployment
 
 The FilmHive frontend is deployed to Heroku using the web interface. 
