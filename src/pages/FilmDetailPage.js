@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, useCallback, useMemo } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { Row, Col, Spinner, Button, Dropdown, Alert } from "react-bootstrap";
+import { Row, Col, Spinner, Button, Dropdown, Alert, Modal } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { useFilmDetails } from "../hooks/useFilmDetails";
 import { useReviews } from "../hooks/useReviews";
@@ -51,6 +51,7 @@ function FilmDetailPage() {
   } = useReviewForm(myReview, isAuthenticated);
 
   const [isSubmittingReview, setIsSubmittingReview] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [reviewSort, setReviewSort] = useState("likes_desc");
   const reviewSortOptions = useMemo(
     () => [
@@ -127,11 +128,15 @@ function FilmDetailPage() {
     }
   }, [isAuthenticated, rating, body, myReview, id, setActionError, showSuccess, setIsEditing, fetchReviews]);
 
-  const handleDeleteReview = useCallback(async () => {
+  const handleDeleteReview = useCallback(() => {
+    if (!myReview) return;
+    setShowDeleteModal(true);
+  }, [myReview]);
+
+  const confirmDeleteReview = useCallback(async () => {
     if (!myReview) return;
     setActionError("");
-
-    if (!window.confirm("Delete your review?")) return;
+    setShowDeleteModal(false);
 
     try {
       await reviewService.deleteReview(myReview.id);
@@ -274,6 +279,23 @@ function FilmDetailPage() {
           />
         </Col>
       </Row>
+
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Review</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete your review? This action cannot be undone.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={confirmDeleteReview}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
