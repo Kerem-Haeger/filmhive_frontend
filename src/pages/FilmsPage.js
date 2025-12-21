@@ -9,6 +9,7 @@ import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import { useFilmFilters } from "../hooks/useFilmFilters";
 import { useFilmSearch } from "../hooks/useFilmSearch";
 import AuthCtaBanner from "../components/common/AuthCtaBanner";
+import ScrollToTop from "../components/common/ScrollToTop";
 
 function FilmsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -183,6 +184,7 @@ function FilmsPage() {
           )}
         </>
       )}
+      <ScrollToTop />
     </>
   );
 }

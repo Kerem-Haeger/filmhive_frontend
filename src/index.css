@@ -909,6 +909,38 @@ h5 {
   cursor: pointer;
 }
 
+/* Scroll to top button */
+.fh-scroll-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  background-color: rgba(28, 28, 28, 0.95) !important;
+  border: 1px solid rgba(245, 197, 24, 0.5) !important;
+  color: var(--fh-text) !important;
+  padding: 10px 16px !important;
+  font-size: 0.9rem;
+  font-weight: 400;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.fh-scroll-to-top:hover {
+  background-color: rgba(245, 197, 24, 0.15) !important;
+  border-color: var(--fh-gold) !important;
+  color: var(--fh-gold) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+}
+
+.fh-scroll-to-top:active {
+  transform: translateY(0);
+}
+
+.fh-scroll-to-top i {
+  margin-right: 4px;
+}
+
 /* Modal styling to match dark theme */
 .modal-content {
   background-color: rgba(28, 28, 28, 0.98);

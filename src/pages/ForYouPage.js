@@ -4,6 +4,7 @@ import { Row, Col, Spinner, Alert, Button } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import FilmCard from "../components/FilmCard";
+import ScrollToTop from "../components/common/ScrollToTop";
 
 function ForYouPage() {
   const navigate = useNavigate();
@@ -85,13 +86,14 @@ function ForYouPage() {
   });
 
   return (
-    <div>
-      <h1 className="fh-page-title mb-2">For You</h1>
-      <p className="text-muted mb-4">
-        Curated films based on your favourites, reviews, watchlists, and preferred genres.
-      </p>
+    <>
+      <div>
+        <h1 className="fh-page-title mb-2">For You</h1>
+        <p className="text-muted mb-4">
+          Curated films based on your favourites, reviews, watchlists, and preferred genres.
+        </p>
 
-      <Row>
+        <Row>
         {sortedFilms.map((film) => (
           <Col key={film.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
             <FilmCard film={film} />
@@ -109,6 +111,8 @@ function ForYouPage() {
         </div>
       )}
     </div>
+    <ScrollToTop />
+  </>
   );
 }
 
