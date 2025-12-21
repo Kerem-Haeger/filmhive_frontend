@@ -130,6 +130,7 @@ function FilmHeader({ film, castOrPeople, averageRating }) {
                   size="sm"
                   id="fh-watchlist-select"
                   className="fh-select-compact fh-width-dropdown"
+                  disabled={!isAuthenticated}
                 >
                   {isCreatingNew
                     ? "Create new list"

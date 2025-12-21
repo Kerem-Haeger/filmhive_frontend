@@ -91,7 +91,7 @@ FilmHive is built on the principle of community and accessibility:
 
 ## Features
 
-### Core Features
+### Core Features (listed)
 
 #### 🎬 Film Discovery & Browsing
 - **Films Page** - Browse a comprehensive list of films in a responsive grid layout
