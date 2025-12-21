@@ -11,6 +11,10 @@ The platform is designed to be usable **without authentication** for browsing an
 
 ---
 
+This repository is the **frontend only** (separate from the Django backend README, which can be found [here](https://github.com/Kerem-Haeger/filmhive_backend/blob/main/README.md)).
+
+---
+
 ## Project Overview
 
 ### Purpose
@@ -643,27 +647,6 @@ This approach was chosen to:
 - Maintain data consistency across users
 
 This also supports a controlled **seed strategy**, ensuring the platform is populated with meaningful data while avoiding unnecessary bloat.
-
----
-
-## Data Flow & Architecture
-
-### High-Level Flow
-
-1. React frontend requests data via Axios
-2. Django REST API processes requests
-3. JWT middleware validates authentication (if required)
-4. Database handles relational user interactions
-5. React components/contexts update UI state based on API responses
-
-### Key Principles
-
-- **Thin frontend, authoritative backend**
-- **One review per user per film enforced server-side**
-- **Optimistic UI updates with rollback on failure**
-- **Graceful error handling and retry mechanisms**
-
-This architecture ensures data integrity while keeping the user experience responsive.
 
 ---
 

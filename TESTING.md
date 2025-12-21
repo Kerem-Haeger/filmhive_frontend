@@ -159,53 +159,6 @@ Legend:
 
 ---
 
-## Testing API (Update endpoints to match your final routes)
-
-Note: You mentioned "both" for auth. In practice FilmHive should use either:
-- Session auth (cookie-based) for browser use, and/or
-- Token/JWT auth for API clients.
-If both are enabled, test both flows separately.
-
-### Auth
-- Register: POST /api/auth/registration/
-- Login: POST /api/auth/login/
-- Logout: POST /api/auth/logout/
-- Token refresh (if JWT): POST /api/auth/token/refresh/
-
-### Films (UUID-based)
-- List/search/filter/sort: GET /api/films/?search=&genre=&year=&min_score=&max_runtime=&sort=
-- Detail by UUID: GET /api/films/{uuid}/
-- Cache/fetch (if separate): POST /api/films/fetch/
-
-### Reviews
-- List for film: GET /api/reviews/?film={film_uuid}
-- Create: POST /api/reviews/
-- Update/Delete (owner only): PUT/PATCH/DELETE /api/reviews/{uuid}/
-
-### Review Likes
-- Like: POST /api/review-likes/
-- Unlike: DELETE /api/review-likes/{uuid}/
-(or a toggle endpoint if implemented)
-
-### Favourites
-- List: GET /api/favourites/
-- Add: POST /api/favourites/
-- Remove: DELETE /api/favourites/{uuid}/
-
-### Watchlists (multiple lists; no explicit "delete list")
-- List: GET /api/watchlists/
-- Add: POST /api/watchlists/
-- Remove: DELETE /api/watchlists/{uuid}/
-Expectation: when the last item of a list_name is removed, the list_name disappears from UI (no separate delete-list endpoint).
-
-### For You (Personalized Recommendations)
-- Personal recommendations: GET /api/for-you/
-
-### Blend Mode
-- Blend Mode / Compromise: POST /api/compromise/  (payload includes film_a_uuid, film_b_uuid, weighting)
-
----
-
 ## Performance Testing
 
 Use Lighthouse to test performance, accessibility, best practices, and SEO.
