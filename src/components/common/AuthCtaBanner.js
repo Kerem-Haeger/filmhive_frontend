@@ -23,8 +23,8 @@ function AuthCtaBanner() {
       <Row className="align-items-center g-3 g-md-4">
         <Col md={5} className="order-md-first">
           <h2 className="fh-cta-title mb-3">Unlock your film experience!</h2>
-          <div className="d-flex gap-2">
-            <Button as={Link} to="/register" variant="warning" className="fw-semibold">
+          <div className="d-flex">
+            <Button as={Link} to="/register" variant="warning" className="fw-semibold mr-3">
               Create your profile
             </Button>
             <Button as={Link} to="/login" variant="outline-light">

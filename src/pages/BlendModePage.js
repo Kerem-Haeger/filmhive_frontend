@@ -245,7 +245,7 @@ function BlendModePage() {
     <>
       <h1 className="fh-page-title mb-3">Blend Mode</h1>
       <p className="text-muted mb-4 fh-form-container-lg">
-        Find your perfect film by blending two movies. Select Film A and Film B, and we'll find films that match both!
+        Want to watch a movie together but have different tastes? Try our unique Blend Mode! Pick two films that represent each person's preferences, and we'll find the perfect compromise—movies that blend the best of both worlds. No more endless scrolling or debates — just great films you'll both love.
       </p>
 
       {/* Film Selection */}

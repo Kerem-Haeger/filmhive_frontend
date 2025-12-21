@@ -419,8 +419,8 @@ h5 {
 .dropdown-menu {
   background: linear-gradient(
       180deg,
-      rgba(10, 10, 10, 0.92) 0%,
-      rgba(10, 10, 10, 0.85) 100%
+      rgba(10, 10, 10, 0.98) 0%,
+      rgba(10, 10, 10, 0.96) 100%
     );
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
