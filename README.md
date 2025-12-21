@@ -495,6 +495,11 @@ The live link can be found here: [FimHive](https://filmhive-85b95f07d5b8.herokua
 
 For detailed instructions on Deployment, please see [DEPLOYMENT.md](DEPLOYMENT.md)
 
+> **Note:**  
+> A small number of test user accounts and reviews have been intentionally left in the deployed database to demonstrate review creation, permissions, and aggregation behaviour.  
+> Reviews are primarily associated with a limited set of films (e.g. *The Avengers*) to make assessment and testing clearer.
+
+
 ### Prerequisites
 - Heroku account
 - Git installed locally
