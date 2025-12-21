@@ -136,8 +136,8 @@ FilmHive is built on the principle of community and accessibility:
 - **Only for Logged-in Users** - Personalized recommendations for authenticated users
 
 #### 🔐 Authentication & User Management
-- **Sign Up** - Create an account with username, email (optional), and password
-- **Log In** - Secure login with username/email and password
+- **Register** - Create an account with username, email (optional), and password
+- **Login** - Secure login with username/email and password
 - **Log Out** - Safely log out and clear session
 - **Session Management** - Stay logged in across page refreshes with JWT authentication
 - **Protected Routes** - Auth-only features are hidden/disabled for logged-out users
@@ -183,14 +183,14 @@ The navigation bar is available on all pages, providing seamless access to core 
    - **Favorites Link** (Authenticated users only) – Access favorited films.
    
    - **Authentication Links** (Non-authenticated users):
-     - **Sign In** – Redirects to the Sign In page.
-     - **Sign Up** – Redirects to the Sign Up page.
+     - **Login** – Redirects to the Sign In page.
+     - **Register** – Redirects to the Sign Up page.
    
    ![Navigation Bar (non-authorized users)](documentation/navbar_non_auth.png)
    
    - **User Menu** (Authenticated users):
      - **FilmHive** – Goes to home page.
-     - **Sign Out** – Logs out and clears session.
+     - **Logout** – Logs out and clears session.
    
    ![Navigation Bar (authorized users)](documentation/navbar_auth.png)
 
@@ -232,10 +232,10 @@ Registered users can securely access their accounts through the Sign In page.
 ![Sign In](documentation/login.png)
 
 1. **Authentication Form:**
-   - **Username/Email** field
+   - **Username** field
    - **Password** field
-   - **Sign In** button with hover effect
-   - Link to **Sign Up** for new users
+   - **Login** button with hover effect
+   - Link to **Register** for new users
 
 2. **Error Handling:**
    - Clear error messages for invalid credentials
@@ -266,12 +266,12 @@ New users can create accounts through the registration form.
    - Duplicate username/email prevention
 
 3. **User Flow:**
-   - Link to **Sign In** for existing users
+   - Link to **Login** for existing users
    - Automatic login after registration
 
 __Films Page__
 
-The main browsing interface for discovering and exploring films.
+The main browsing interface for discovering and exploring films. This is the same page as the Home Page, but without the CTA for authenticated users.
 
 ![Films Page](documentation/film_page_auth.png)
 
@@ -293,10 +293,10 @@ The main browsing interface for discovering and exploring films.
 3. **Filter Controls:**
    - **Genre filter** (dropdown with multiple selection)
    - **Year range** filter
-   - **Rating filter** (minimum rating)
-   - **Sort options**: Title, Year, Rating, Popularity
+   - **Rating filter** Highest or Lowest first
+   - **Popularity** (descending)
    - **Show/Hide Filters** toggle button
-   - **Clear All Filters** button
+   - **Clear All Filters** button (only when at least one filter selected)
 
    ![Filter Bar](documentation/filter_bar.png)
 
@@ -311,6 +311,8 @@ The main browsing interface for discovering and exploring films.
    - **Favorite button** (heart icon) for quick favoriting
    - Visual indication of favorited films
    - Hover effects for interactivity
+
+   ![Film Card](documentation/film_detail.png)
 
 __Film Detail Page__
 
@@ -430,6 +432,7 @@ Real-time feedback system for user actions.
 
 ![Notification](documentation/notification_success.png)
 ![Notification](documentation/notification_failure.png)
+![Notification](documentation/spinner.png)
 
 1. **Types:**
    - **Success** notifications (green)
@@ -451,6 +454,7 @@ Real-time feedback system for user actions.
 ### Future Features
 
 - **Social Features:** Follow other users, share watchlists publicly
+- **Log in** with email OR username
 - **Safeguarding:** In addition to reporting reviews, give a reason, have admin feedback and decisions
 - **Advanced Filters:** Streaming service availability, language, subtitles
 - **Lists & Collections:** Themed collections, trending lists, new or coming soon, etc
@@ -488,6 +492,8 @@ Real-time feedback system for user actions.
 
 The FilmHive frontend is deployed to Heroku using the web interface. 
 The live link can be found here: [FimHive](https://filmhive-85b95f07d5b8.herokuapp.com/)
+
+For detailed instructions on Deployment, please see [DEPLOYMENT.md](DEPLOYMENT.md)
 
 ### Prerequisites
 - Heroku account

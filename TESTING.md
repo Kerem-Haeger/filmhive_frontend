@@ -208,17 +208,10 @@ Expectation: when the last item of a list_name is removed, the list_name disappe
 
 ## Performance Testing
 
-Use Lighthouse to test performance, accessibility, best practices, and SEO for:
-- Films listing (root/home page)
-- Film detail
-- Login/Register
-- For You
-- Blend Mode
-- Favourites
-- Watchlists
+Use Lighthouse to test performance, accessibility, best practices, and SEO.
 
-Store screenshots in:
-- documentation/lighthouse/
+![Lighthouse Score](documentation/lighthouse_home.png)
+![Lighthouse Score](documentation/lighthouse_film.png)
 
 ---
 
@@ -231,27 +224,14 @@ Test at:
 - Tablet (768x1024)
 - Mobile (360x640, 375x667)
 
-Pages:
-- Films (root/home page)
-- Film Detail
-- Login/Register
-- For You
-- Blend Mode
-- Favourites
-- Watchlists
-
-Store screenshots in:
-- documentation/responsiveness/
+![Responsiveness](documentation/amiresponsive.png)
 
 ### Cross-browser Testing
 
 Test minimum:
 - Chrome
 - Firefox
-- Edge
-
-Store screenshots in:
-- documentation/browsers/
+- Safari
 
 ---
 
