@@ -3,6 +3,9 @@
 **FilmHive** is a full-stack web application for film enthusiasts to discover, review, and organise movies.  
 The platform is designed to be usable **without authentication** for browsing and discovery, while offering **enhanced, personalised features** to logged-in users such as favourites, watchlists, reviews, likes, follows, and **Blend Mode** (blended film recommendations).
 
+
+![FilmHive Screenshot](documentation/amiresponsive.png)
+
 🔗 **Live site:** https://filmhive-85b95f07d5b8.herokuapp.com/  
 🔗 **Frontend repository:** https://github.com/Kerem-Haeger/filmhive_frontend  
 
@@ -183,13 +186,13 @@ The navigation bar is available on all pages, providing seamless access to core 
      - **Sign In** – Redirects to the Sign In page.
      - **Sign Up** – Redirects to the Sign Up page.
    
-   ![Navigation Bar (non-authorized users)](documentation/features/nav-non-authorized.png)
+   ![Navigation Bar (non-authorized users)](documentation/navbar_non_auth.png)
    
    - **User Menu** (Authenticated users):
      - **FilmHive** – Goes to home page.
      - **Sign Out** – Logs out and clears session.
    
-   ![Navigation Bar (authorized users)](documentation/features/nav-authorized.png)
+   ![Navigation Bar (authorized users)](documentation/navbar_auth.png)
 
 2. **User Experience & Design:**
    - All navigation items feature **hover effects** for better interactivity.
@@ -197,13 +200,13 @@ The navigation bar is available on all pages, providing seamless access to core 
    - **Responsive design** with mobile-friendly toggle menu.
    - Smooth transitions between pages without browser "Back" button dependency.
 
-   ![Navigation Bar (mobile)](documentation/features/nav-mobile.png)
+   ![Navigation Bar (mobile)](documentation/navbar_auth_mobile.png)
 
 __Home Page__
 
 The Home page serves as the entry point, welcoming users and showcasing the platform's key features.
 
-![Home Page](documentation/features/home.png)
+![Home Page](documentation/film_page_non_auth.png)
 
 1. **Hero Section:**
    - Compelling headline and description.
@@ -226,7 +229,7 @@ __Log In Page__
 
 Registered users can securely access their accounts through the Sign In page.
 
-![Sign In](documentation/features/sign-in.png)
+![Sign In](documentation/login.png)
 
 1. **Authentication Form:**
    - **Username/Email** field
@@ -248,7 +251,7 @@ __Register Page__
 
 New users can create accounts through the registration form.
 
-![Sign Up](documentation/features/sign-up.png)
+![Sign Up](documentation/register.png)
 
 1. **Registration Form:**
    - **Username** (required, unique)
@@ -270,7 +273,7 @@ __Films Page__
 
 The main browsing interface for discovering and exploring films.
 
-![Films Page](documentation/features/films.png)
+![Films Page](documentation/film_page_auth.png)
 
 1. **Film Display:**
    - **Grid layout** on larger screens
@@ -285,7 +288,7 @@ The main browsing interface for discovering and exploring films.
    - Clear button to reset search
    - Search persistence across page navigation
 
-   ![Search Bar](documentation/features/search-bar.png)
+   ![Search Bar](documentation/search_bar.png)
 
 3. **Filter Controls:**
    - **Genre filter** (dropdown with multiple selection)
@@ -295,7 +298,7 @@ The main browsing interface for discovering and exploring films.
    - **Show/Hide Filters** toggle button
    - **Clear All Filters** button
 
-   ![Filter Bar](documentation/features/filter-bar.png)
+   ![Filter Bar](documentation/filter_bar.png)
 
 4. **Infinite Scrolling:**
    - Automatic loading of additional films
@@ -313,7 +316,7 @@ __Film Detail Page__
 
 Comprehensive view of individual film information.
 
-![Film Detail](documentation/features/film-detail.png)
+![Film Detail](documentation/filter_bar.png)
 
 1. **Film Information:**
    - **Large poster image**
@@ -350,7 +353,7 @@ __Favorites Page__
 
 Personal collection of favorited films.
 
-![Favorites](documentation/features/favorites.png)
+![Favorites](documentation/favourites.png)
 
 1. **Display:**
    - Grid/list layout of favorited films
@@ -366,7 +369,7 @@ __Watchlists Page__
 
 Manage and organize personal watchlists.
 
-![Watchlists](documentation/features/watchlists.png)
+![Watchlists](documentation/watchlists.png)
 
 1. **Watchlist Overview:**
    - List of all user's watchlists
@@ -377,7 +380,10 @@ __Blend Mode Page__
 
 Unique feature for finding "compromise" films.
 
-![Blend Mode](documentation/features/blend-mode.png)
+![Blend Mode](documentation/blend_mode_blank.png)
+![Blend Mode](documentation/blend_mode_list.png)
+![Blend Mode](documentation/blend_mode_both_selected.png)
+![Blend Mode](documentation/blend_mode_final.png)
 
 1. **User Selection:**
    - **Search for film** input field
@@ -389,6 +395,7 @@ Unique feature for finding "compromise" films.
    - Finds common genres and themes
    - Suggests films with high compatibility
    - Weighted scoring system
+   - User can favour one or the other film via a slider
 
 3. **Results Display:**
    - **Compromise films** grid
@@ -400,7 +407,7 @@ __For You Page__
 
 Personalized recommendations based on user preferences.
 
-![For You](documentation/features/for-you.png)
+![For You](documentation/for-you.png)
 
 1. **Recommendation Engine:**
    - Analyzes user's favorites
@@ -421,7 +428,8 @@ __Notifications__
 
 Real-time feedback system for user actions.
 
-![Notification](documentation/features/notification.png)
+![Notification](documentation/notification_success.png)
+![Notification](documentation/notification_failure.png)
 
 1. **Types:**
    - **Success** notifications (green)
