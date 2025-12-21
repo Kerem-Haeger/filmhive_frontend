@@ -73,6 +73,8 @@ FilmHive is built on the principle of community and accessibility:
 
 ## User Stories
 
+The link to the GitHub User Stories can be found [here](https://github.com/users/Kerem-Haeger/projects/6).
+
 | **ID** | **User Story** | **Acceptance Criteria** |
 |-|-|-|
 | 1 | As a movie fan, I want to see a list of films with key info, so that I can quickly spot something interesting to watch. | • When I visit /films, I see a grid/list of films from /api/films/. <br> • Each film card shows poster, title, year, and average_rating (or "No ratings yet"). <br> • If the API is loading, a spinner/skeleton is shown. <br> • If the API fails, an error message is shown with a retry option. |
