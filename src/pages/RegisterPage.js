@@ -132,7 +132,9 @@ function RegisterPage() {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>
+            Password <span className="text-muted">(min. 8 characters, must include a number)</span>
+          </Form.Label>
           <Form.Control
             type="password"
             value={password1}
