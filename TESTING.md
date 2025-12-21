@@ -219,12 +219,7 @@ Use Lighthouse to test performance, accessibility, best practices, and SEO.
 
 ### Responsive Testing
 
-Test at:
-- Desktop (1920x1080, 1366x768)
-- Tablet (768x1024)
-- Mobile (360x640, 375x667)
-
-![Responsiveness](documentation/amiresponsive.png)
+![Responsiveness](documentation/responsive_viewer_full_page.png)
 
 ### Cross-browser Testing
 
@@ -241,6 +236,8 @@ Test minimum:
 
 The frontend codebase was checked using **ESLint** to ensure code quality, consistency, and adherence to best practices.
 
+![ESLint](documentation/linter_frontend.png)
+
 #### Running ESLint
 The following command was used:
 ```bash
@@ -256,6 +253,8 @@ npx eslint src
 ## Automated Testing
 
 FilmHive uses **Jest** and **React Testing Library** for automated component testing.
+
+![Test Results](documentation/tests_frontend.png)
 
 ### Test Framework
 - **Jest** - JavaScript testing framework
