@@ -221,6 +221,7 @@ function FilmDetailPage() {
                   size="sm"
                   id="fh-review-sort"
                   className="fh-select-compact"
+                  disabled={sortedReviews.filter((r) => r.body && r.body.trim().length > 0).length === 0}
                 >
                   {
                     reviewSortOptions.find((opt) => opt.value === reviewSort)

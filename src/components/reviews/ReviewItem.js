@@ -84,6 +84,11 @@ function ReviewItem({
 				</div>
 			</div>
 			{review.body && <p className="mb-2">{review.body}</p>}
+			{!review.body && isOwner && review.rating != null && (
+				<p className="text-muted fh-text-sm mb-2">
+					You rated this film but haven't written a review yet.
+				</p>
+			)}
 			{review.created_at && (
 				<small className="text-muted">
 					{new Date(review.created_at).toLocaleDateString()}

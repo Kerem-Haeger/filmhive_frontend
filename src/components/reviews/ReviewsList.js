@@ -24,17 +24,22 @@ function ReviewsList({
     return <p className="text-muted mb-0">No reviews yet.</p>;
   }
 
-  const reviewsWithBody = reviews.filter(
-    (review) => review.body && review.body.trim().length > 0
+  // Include reviews with body text, OR the user's own review if it has a rating (even without body)
+  const reviewsToShow = reviews.filter(
+    (review) => {
+      const hasBody = review.body && review.body.trim().length > 0;
+      const isMyRatingOnly = isAuthenticated && myReviewId != null && review.id === myReviewId && review.rating != null;
+      return hasBody || isMyRatingOnly;
+    }
   );
 
-  if (reviewsWithBody.length === 0) {
+  if (reviewsToShow.length === 0) {
     return <p className="text-muted mb-0">No written reviews yet.</p>;
   }
 
   return (
     <div>
-      {reviewsWithBody.map((review) => (
+      {reviewsToShow.map((review) => (
         <ReviewItem
           key={review.id}
           review={review}
